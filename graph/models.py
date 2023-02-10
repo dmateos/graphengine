@@ -12,10 +12,11 @@ class Graph(models.Model):
     ))
 
     def get_points(self):
-        return [1, 2, 3, 4, 5]*4
+        data = [float(n.data) for n in self.graphpoint_set.all()]
+        return data
 
     def get_labels(self):
-        return [1, 2, 3, 4, 5]*4
+        return [1, 2, 3]
 
 
 class GraphPoint(models.Model):
