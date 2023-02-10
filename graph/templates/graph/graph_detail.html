@@ -2,6 +2,7 @@
 
 {% block header %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js"></script>
+    <script src= "https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -9,7 +10,7 @@
     <div style="width: 800px;"><canvas id="graph-container"></canvas></div>
 
     <script>
-        const myChart = new Chart(document.getElementById('graph-container'),
+        const graphChart = new Chart(document.getElementById('graph-container'),
         {
             type: "{{ graph.type }}",
             data: {
@@ -23,6 +24,15 @@
             }
           }
         );
+
+        setInterval(function() {
+            graphChart.data.labels.push("0")
+            graphChart.data.datasets.forEach((dataset => {
+                dataset.data.push(300);
+            }));
+            graphChart.update();
+        }, 1000);
+
     </script>
 
 {% endblock %}
