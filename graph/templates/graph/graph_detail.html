@@ -13,11 +13,11 @@
         {
             type: "{{ graph.type }}",
             data: {
-              labels: [1,2,3,4,5],
+              labels: {{ graph.get_labels }},
               datasets: [
                 {
-                  label: 'Acquisitions by year',
-                  data: [1,2,3,4,5]
+                  label: '',
+                  data: {{ graph.get_points }}
                 }
               ]
             }
