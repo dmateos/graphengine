@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from . import serializers
 from . import models
+
 
 class GraphViewSet(viewsets.ModelViewSet):
     queryset = models.Graph.objects.all()
@@ -17,6 +17,10 @@ class GraphPointViewSet(viewsets.ModelViewSet):
 
 class GraphListView(ListView):
     queryset = models.Graph.objects.all()
+
+
+class GraphDetailView(DetailView):
+    model = models.Graph
 
 
 class IndexView(TemplateView):

@@ -1,4 +1,7 @@
 {% load bootstrap5 %}
+
+{% block header %} {% endblock %}
+
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
@@ -26,6 +29,6 @@
     </div>
 </nav> 
 
-{% block content %}
-
-{% endblock %}
+<div class="content">
+  {% block content %} {% endblock %}
+</div>

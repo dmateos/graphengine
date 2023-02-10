@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js"></script>
+{% endblock %}
+
+{% block content %}
+    This is graph {{ graph.name }} ({{ graph.id }})
+    <div style="width: 800px;"><canvas id="graph-container"></canvas></div>
+
+    <script>
+        const myChart = new Chart(document.getElementById('graph-container'),
+        {
+            type: 'bar',
+            data: {
+              labels: [1,2,3,4,5],
+              datasets: [
+                {
+                  label: 'Acquisitions by year',
+                  data: [1,2,3,4,5]
+                }
+              ]
+            }
+          }
+        );
+    </script>
+
+{% endblock %}

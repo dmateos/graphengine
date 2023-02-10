@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Sup
+    {% for graph in graph_list %}
+        <a href={% url 'graphs' graph.id %}>{{ graph.name }}</a>
+    {% endfor %}
 {% endblock %}
