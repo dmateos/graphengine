@@ -11,7 +11,7 @@
     <script>
         const myChart = new Chart(document.getElementById('graph-container'),
         {
-            type: 'bar',
+            type: "{{ graph.type }}",
             data: {
               labels: [1,2,3,4,5],
               datasets: [
