@@ -26,13 +26,25 @@
         );
 
         setInterval(function() {
-            graphChart.data.labels.push("0")
-            graphChart.data.datasets.forEach((dataset => {
-                dataset.data.push(300);
-            }));
-            graphChart.update();
-        }, 1000);
+            $.ajax({
+                url: "/api/graphpoints/",
+                type: "GET",
 
+                success: function(data) {
+                    data.forEach(function(obj) {
+                        graphChart.data.labels.push(obj.label)
+                        graphChart.data.datasets.forEach((dataset => {
+                            dataset.data.push(obj.data);
+                        }));
+                    });
+                    graphChart.update();
+                    console.log("graph request success");
+                },
+                error: function(error) {
+                    console.log("graph request error");
+                }
+            });
+        }, 1000);
     </script>
 
 {% endblock %}
