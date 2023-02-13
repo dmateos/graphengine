@@ -19,6 +19,10 @@ class Graph(models.Model):
         label = [n.label for n in self.graphpoint_set.all()]
         return label
 
+    def get_from_sequence(self, sequence_id):
+        data = self.graphpoint_set.filter(sequence__gt=sequence_id)
+        return [float(n.data) for n in data]
+
     def create_point(self, label, data):
         try:
             new_seq = self.graphpoint_set.all().order_by("-sequence").first().sequence+1
@@ -31,10 +35,6 @@ class Graph(models.Model):
             data=data,
             sequence=new_seq,
         )
-
-    def get_latest(self, sequence_id):
-        data = self.graphpoint_set.filter(sequence__gt=sequence_id)
-        return [float(n.data) for n in data]
 
 
 class GraphPoint(models.Model):

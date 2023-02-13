@@ -16,8 +16,7 @@ def test_graph_sequence_logic():
     for _ in range(0, 5):
         graph.create_point("", 0)
 
-    sequence = graph.get_latest(2)
-
+    sequence = graph.get_from_sequence(2)
     assert len(sequence) == 2
 
 
