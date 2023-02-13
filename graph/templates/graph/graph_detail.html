@@ -6,8 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    This is graph {{ graph.name }} ({{ graph.id }})
-    <div style="width: 800px;"><canvas id="graph-container"></canvas></div>
+    <div>
+        This is graph {{ graph.name }} ({{ graph.id }})
+    </div>
+
+    <div style="width: 800px;">
+        <canvas id="graph-container"></canvas>
+    </div>
 
     <script>
         const graphChart = new Chart(document.getElementById('graph-container'),
@@ -29,7 +34,9 @@
             $.ajax({
                 url: "/api/graphpoints/",
                 type: "GET",
+                data: {
 
+                },
                 success: function(data) {
                     data.forEach(function(obj) {
                         graphChart.data.labels.push(obj.label)
