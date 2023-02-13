@@ -10,11 +10,11 @@ def create_test_graph():
 
 
 @pytest.mark.django_db
-def test_graphpoint_sequence_logic():
+def test_graph_sequence_logic():
     graph = create_test_graph()
 
     for _ in range(0, 5):
-        graph.create_point("", 1.0)
+        graph.create_point("", 0)
 
     sequence = graph.get_latest(2)
 
@@ -22,11 +22,11 @@ def test_graphpoint_sequence_logic():
 
 
 @pytest.mark.django_db
-def test_graphpoint_sequence_incrementing():
+def test_graph_sequence_incrementing():
     graph = create_test_graph()
 
     for n in range(0, 5):
-        g = graph.create_point("", 1.0)
+        g = graph.create_point("", 0)
         assert g.sequence == n
 
 
