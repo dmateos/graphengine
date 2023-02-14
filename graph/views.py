@@ -1,8 +1,17 @@
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, ListView, DetailView
 
 from . import serializers
 from . import models
+
+
+class GraphPointFilter(filters.FilterSet):
+    sequence = filters.NumberFilter(field_name="sequence", lookup_expr="gt")
+
+    class Meta:
+        model = models.GraphPoint
+        fields = ('graph',)
 
 
 class GraphViewSet(viewsets.ModelViewSet):
@@ -13,6 +22,8 @@ class GraphViewSet(viewsets.ModelViewSet):
 class GraphPointViewSet(viewsets.ModelViewSet):
     queryset = models.GraphPoint.objects.all()
     serializer_class = serializers.GraphPointSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = GraphPointFilter
 
 
 class GraphListView(ListView):

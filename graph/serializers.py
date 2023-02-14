@@ -11,4 +11,4 @@ class GraphSerializer(serializers.HyperlinkedModelSerializer):
 class GraphPointSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.GraphPoint
-        fields = ["label", "data", "graph"]
+        fields = ["label", "data", "graph", "created", "sequence"]
