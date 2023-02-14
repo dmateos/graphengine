@@ -39,8 +39,8 @@ class Graph(models.Model):
 
 class GraphPoint(models.Model):
     data = models.CharField(max_length=32, null=False)
-    label = models.CharField(max_length=8, default=0, null=False)
+    label = models.CharField(max_length=8, null=False, default=0)
     graph = models.ForeignKey(Graph, on_delete=models.CASCADE, null=False)
 
     created = models.DateTimeField(auto_now=True)
-    sequence = models.IntegerField(default=0, null=False)
+    sequence = models.IntegerField(null=False, default=0)
