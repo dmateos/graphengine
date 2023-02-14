@@ -42,8 +42,8 @@ def test_graph_get_all_points():
 @pytest.mark.django_db
 def test_graph_get_all_labels():
     graph = create_test_graph()
-    graph.create_point("test1", 0)
-    graph.create_point("test2", 0)
+    graph.create_point("0", 0)
+    graph.create_point("1", 0)
 
     points = graph.get_labels()
-    assert points == ["test1", "test2"]
+    assert points == [0.0, 1.0]

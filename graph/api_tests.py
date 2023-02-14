@@ -51,7 +51,7 @@ def test_api_graphpoints_get_from_sequence():
     )
     for n in range(0, 5):
         graph.create_point(n, n)
-    
+
     response = api_client.get("/api/graphpoints/?sequence=2")
     assert response.status_code == 200
 

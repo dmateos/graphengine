@@ -16,7 +16,7 @@ class Graph(models.Model):
         return data
 
     def get_labels(self):
-        label = [n.label for n in self.graphpoint_set.all()]
+        label = [float(n.label) for n in self.graphpoint_set.all()]
         return label
 
     def get_from_sequence(self, sequence_id):

@@ -30,9 +30,11 @@
           }
         );
 
+        var sequence = 0;
+
         setInterval(function() {
             $.ajax({
-                url: "/api/graphpoints/",
+                url: "/api/graphpoints/?graph={{graph.id}}&sequence=" + sequence,
                 type: "GET",
                 data: {
 
@@ -43,6 +45,7 @@
                         graphChart.data.datasets.forEach((dataset => {
                             dataset.data.push(obj.data);
                         }));
+                        sequence = obj.sequence;
                     });
                     graphChart.update();
                     console.log("graph request success");
