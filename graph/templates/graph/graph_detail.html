@@ -7,9 +7,11 @@
 
 {% block content %}
     {% include "graph/graph_js.html" %}
-    <div> This is graph {{ graph.name }} ({{ graph.id }}) </div>
-    <div style="width: 800px;"> <canvas id="graph-container"></canvas> </div>
-    <script>
-        setup_chart("graph-container", 1000, "{{graph.type}}", {{graph.id}});
-    </script> 
+    <div class="graph_{{graph.id}}">
+        <div> This is graph {{ graph.name }} ({{ graph.id }}) </div>
+        <div style="width: 800px;"> <canvas id="graph-container"></canvas> </div>
+        <script>
+            setup_chart("graph-container", 1000, "{{graph.type}}", {{graph.id}});
+        </script> 
+    </div>
 {% endblock %}
