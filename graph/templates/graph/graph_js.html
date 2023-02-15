@@ -1,0 +1,35 @@
+<script>
+    function setup_chart(name, rate, graph_type, graph_id) {
+        const graphChart = new Chart(document.getElementById(name), {
+            type: graph_type,
+            data: {
+                labels: "",
+                datasets: [ { label: '', data: "", } ]
+            }
+        });
+
+        var sequence = 0;
+
+        setInterval(function() {
+            $.ajax({
+                url: "/api/graphpoints/?graph=" + graph_id + "&sequence=" + sequence,
+                type: "GET",
+                data: {},
+                success: function(data) {
+                    data.forEach(function(obj) {
+                        graphChart.data.labels.push(obj.label)
+                        graphChart.data.datasets.forEach((dataset => {
+                            dataset.data.push(obj.data);
+                        }));
+                        sequence = obj.sequence;
+                    });
+                    graphChart.update();
+                    console.log("graph request success");
+                },
+                error: function(error) {
+                    console.log("graph request error");
+                }
+            });
+        }, rate);
+    }
+</script>

@@ -81,3 +81,12 @@ def test_api_graphpoints_filter_by_graph():
 
     response_parsed = json.loads(response.content)
     assert len(response_parsed) == 2
+
+
+@pytest.mark.django_db
+def test_api_graphpoints_push():
+    pass
+
+@pytest.mark.django_db
+def test_api_graphpoints_push_increases_sequence():
+    pass

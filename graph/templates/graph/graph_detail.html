@@ -6,55 +6,10 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        This is graph {{ graph.name }} ({{ graph.id }})
-    </div>
-
-    <div style="width: 800px;">
-        <canvas id="graph-container"></canvas>
-    </div>
-
+    {% include "graph/graph_js.html" %}
+    <div> This is graph {{ graph.name }} ({{ graph.id }}) </div>
+    <div style="width: 800px;"> <canvas id="graph-container"></canvas> </div>
     <script>
-        const graphChart = new Chart(document.getElementById('graph-container'),
-        {
-            type: "{{ graph.type }}",
-            data: {
-              labels: {{ graph.get_labels }},
-              datasets: [
-                {
-                  label: '',
-                  data: {{ graph.get_points }},
-                }
-              ]
-            }
-          }
-        );
-
-        var sequence = 0;
-
-        setInterval(function() {
-            $.ajax({
-                url: "/api/graphpoints/?graph={{graph.id}}&sequence=" + sequence,
-                type: "GET",
-                data: {
-
-                },
-                success: function(data) {
-                    data.forEach(function(obj) {
-                        graphChart.data.labels.push(obj.label)
-                        graphChart.data.datasets.forEach((dataset => {
-                            dataset.data.push(obj.data);
-                        }));
-                        sequence = obj.sequence;
-                    });
-                    graphChart.update();
-                    console.log("graph request success");
-                },
-                error: function(error) {
-                    console.log("graph request error");
-                }
-            });
-        }, 1000);
-    </script>
-
+        setup_chart("graph-container", 1000, "{{graph.type}}", {{graph.id}});
+    </script> 
 {% endblock %}
