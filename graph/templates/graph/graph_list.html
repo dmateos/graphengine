@@ -2,18 +2,26 @@
 
 {% block header %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js"></script>
-    <script src= "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}
 
 {% block content %}
     {% include "graph/graph_js.html" %}
-    {% for graph in graph_list %}
-        <div class="graph_{{graph.id}}">
-            <a href={% url 'graphs' graph.id %}>{{ graph.name }}</a>
-            <div style="width: 800px;"> <canvas id="graph-container-{{graph.id}}"></canvas> </div>
-            <script>
-                setup_chart("graph-container-{{graph.id}}", 1000, "{{graph.type}}", {{graph.id}});
-            </script>
+    <div class="container-fluid">
+        <div class="row">
+            {% for graph in graph_list %}
+                <div class="col">
+                    <div class="graph_{{graph.id}} card bg-dark">
+                        <div class="card-body">
+                            <a class="text-white" href={% url 'graphs' graph.id %}>{{ graph.name }}</a>
+                            <div style="width: 800px;"> <canvas id="graph-container-{{graph.id}}"></canvas> </div>
+                            <script>
+                                setup_chart("graph-container-{{graph.id}}", 1000, "{{graph.type}}", {{graph.id}});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
 {% endblock %}

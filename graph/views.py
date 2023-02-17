@@ -11,7 +11,7 @@ class GraphPointFilter(filters.FilterSet):
 
     class Meta:
         model = models.GraphPoint
-        fields = ('graph',)
+        fields = ("graph",)
 
 
 class GraphViewSet(viewsets.ModelViewSet):

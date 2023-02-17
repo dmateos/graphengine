@@ -3,10 +3,7 @@ from . import models
 
 
 def create_test_graph():
-    return models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    return models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
 
 
 @pytest.mark.django_db

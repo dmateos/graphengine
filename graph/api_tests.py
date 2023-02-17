@@ -15,10 +15,7 @@ def test_api_graph_get_404():
 @pytest.mark.django_db
 def test_api_graph_get():
     api_client = APIClient()
-    graph = models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     response = api_client.get(f"/api/graphs/{graph.id}/")
     assert response.status_code == 200
 
@@ -26,10 +23,7 @@ def test_api_graph_get():
 @pytest.mark.django_db
 def test_api_graphpoints_get():
     api_client = APIClient()
-    graph = models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     graph.create_point("test point", 0)
     response = api_client.get(f"/api/graphpoints/{graph.id}/")
     assert response.status_code == 200
@@ -45,10 +39,7 @@ def test_api_graphpoints_get_404():
 @pytest.mark.django_db
 def test_api_graphpoints_get_from_sequence():
     api_client = APIClient()
-    graph = models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     for n in range(0, 5):
         graph.create_point(n, n)
 
@@ -63,16 +54,10 @@ def test_api_graphpoints_get_from_sequence():
 @pytest.mark.django_db
 def test_api_graphpoints_filter_by_graph():
     api_client = APIClient()
-    graph1 = models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    graph1 = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     graph1.create_point("", "")
     graph1.create_point("", "")
-    graph2 = models.Graph.objects.create(
-        name="TestGraph",
-        type=models.GRAPHTYPE_BAR
-    )
+    graph2 = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     graph2.create_point("", "")
     graph2.create_point("", "")
 
@@ -86,6 +71,7 @@ def test_api_graphpoints_filter_by_graph():
 @pytest.mark.django_db
 def test_api_graphpoints_push():
     pass
+
 
 @pytest.mark.django_db
 def test_api_graphpoints_push_increases_sequence():

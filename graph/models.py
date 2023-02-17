@@ -6,10 +6,15 @@ GRAPHTYPE_BAR = "bar"
 
 class Graph(models.Model):
     name = models.CharField(max_length=32, null=False)
-    type = models.CharField(max_length=16, null=False, default=GRAPHTYPE_LINE, choices=(
-        (GRAPHTYPE_LINE, "line"),
-        (GRAPHTYPE_BAR, "bar"),
-    ))
+    type = models.CharField(
+        max_length=16,
+        null=False,
+        default=GRAPHTYPE_LINE,
+        choices=(
+            (GRAPHTYPE_LINE, "line"),
+            (GRAPHTYPE_BAR, "bar"),
+        ),
+    )
 
     def get_points(self):
         data = [float(n.data) for n in self.graphpoint_set.all()]
@@ -25,7 +30,9 @@ class Graph(models.Model):
 
     def create_point(self, label, data):
         try:
-            new_seq = self.graphpoint_set.all().order_by("-sequence").first().sequence+1
+            new_seq = (
+                self.graphpoint_set.all().order_by("-sequence").first().sequence + 1
+            )
         except AttributeError:
             new_seq = 0
 

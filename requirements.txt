@@ -2,4 +2,5 @@ Django==4.1.6
 djangorestframework==3.14.0
 django-filter
 django-bootstrap-v5
+django-rest-authtoken
 pytest-django
