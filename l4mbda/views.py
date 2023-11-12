@@ -5,7 +5,7 @@ from .models import Job, JobRun
 
 
 def root(request):
-    return render(request, "jobmanager/index.html", {})
+    return render(request, "l4mbda/index.html", {})
 
 
 def run_job(request, job_id):
