@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("graph.urls")),
+    path('graphs/', include("graph.urls")),
+    path('lambda/', include("l4mbda.urls")),
+    #path('calculus/', include("calculus.urls")),
 ]

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "bootstrap5",
     "graph",
+    "calculus",
+    "l4mbda",
 ]
 
 MIDDLEWARE = [
