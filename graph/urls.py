@@ -9,7 +9,7 @@ router.register(r"graphpoints", views.GraphPointViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
-    path("graphs", views.GraphListView.as_view()),
-    path("graphs/<int:pk>", views.GraphDetailView.as_view(), name="graphs"),
+    path("", views.GraphListView.as_view()),
+    path("<int:pk>", views.GraphDetailView.as_view(), name="graphs"),
     path("", views.IndexView.as_view()),
 ]
