@@ -26,6 +26,9 @@ class InferenceModel(models.Model):
     metadata = models.TextField(null=True, blank=True)
     output = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.name} {self.model_name}"
+
     def run_model(self):
         try:
             driver = SUPPORTED_MODELS[self.model_name]["driver"]
