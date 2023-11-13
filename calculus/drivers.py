@@ -14,3 +14,8 @@ class VitBasePatch16_224:
         output = model(images=input)
         output = [{"score": round(pred["score"], 4), "label": pred["label"]} for pred in output]
         return output
+
+
+class TestDriver:
+    def run(self, input, metadata):
+        return input

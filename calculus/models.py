@@ -8,6 +8,9 @@ SUPPORTED_MODELS = {
     "google/vit-base-patch16-224": {
         "driver": drivers.VitBasePatch16_224()
     },
+    "test": {
+        "driver": drivers.TestDriver()
+    },
 }
 
 

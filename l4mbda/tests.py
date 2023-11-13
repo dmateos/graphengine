@@ -47,7 +47,7 @@ class TestJobModel(django.test.TestCase):
             assert runs.state == "done"
             assert runs.status == "ok"
 
-    @patch("jobmanager.tasks.run_job")
+    @patch("l4mbda.tasks.run_job")
     def test_job_run(self, mock_run):
         job = Job.objects.create(code="hello world")
         job.run()
@@ -56,7 +56,7 @@ class TestJobModel(django.test.TestCase):
         assert mock_run.delay.call_count == 1
         assert True
 
-    @patch("jobmanager.tasks.run_job")
+    @patch("l4mbda.tasks.run_job")
     def test_job_run_multiple(self, mock_run):
         job = Job.objects.create(code="hello world", times_to_run=10)
         job.run()
