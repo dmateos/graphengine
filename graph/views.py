@@ -1,7 +1,6 @@
-from rest_framework import viewsets
-from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, ListView, DetailView
-
+from django_filters import rest_framework as filters
+from rest_framework import viewsets
 from . import serializers
 from . import models
 
@@ -12,6 +11,10 @@ class GraphPointFilter(filters.FilterSet):
     class Meta:
         model = models.GraphPoint
         fields = ("graph",)
+
+
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 
 class GraphViewSet(viewsets.ModelViewSet):
@@ -32,7 +35,3 @@ class GraphListView(ListView):
 
 class GraphDetailView(DetailView):
     model = models.Graph
-
-
-class IndexView(TemplateView):
-    template_name = "index.html"
