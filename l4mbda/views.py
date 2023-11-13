@@ -11,7 +11,7 @@ def root(request):
 def run_job(request, job_id):
     job = Job.objects.get(pk=job_id)
     job.run()
-    return HttpResponseRedirect("/jobs")
+    return HttpResponseRedirect("/l4mbda/jobs")
 
 
 class JobView(ListView):

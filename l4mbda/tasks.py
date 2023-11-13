@@ -1,6 +1,6 @@
 import os
 from celery import Celery
-from graph import settings
+from graphengine import settings
 
 
 def bootstrap_django():
@@ -24,7 +24,7 @@ app = build_app()
 
 @app.task(bind=True)
 def run_job(self, job_id):
-    from jobmanager.models import Job
+    from l4mbda.models import Job
 
     job_model = Job.objects.get(pk=job_id)
     job_model.run_main()

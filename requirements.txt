@@ -4,3 +4,6 @@ django-filter
 django-bootstrap-v5
 django-rest-authtoken
 pytest-django
+celery
+redis==5.0.1
+gunicorn
