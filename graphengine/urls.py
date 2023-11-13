@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('graphs/', include("graph.urls")),
     path('l4mbda/', include("l4mbda.urls")),
-    #path('calculus/', include("calculus.urls")),
+    path('calculus/', include("calculus.urls")),
 ]
