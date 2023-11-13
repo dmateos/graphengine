@@ -8,10 +8,10 @@ class TestInterenceModelRun(django.test.TestCase):
         model = InferenceModel.objects.create(
             name="test",
             model_name="test",
-            input="test",
-            metadata="test",
+            input="test-input",
+            metadata="test-meta",
             output="",
         )
 
         model.run_model()
-        self.assertEqual(model.output, "test")
+        self.assertEqual(model.output, "test-input test-meta")

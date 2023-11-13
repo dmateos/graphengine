@@ -18,4 +18,4 @@ class VitBasePatch16_224:
 
 class TestDriver:
     def run(self, input, metadata):
-        return input
+        return str(input) + " " + str(metadata)
