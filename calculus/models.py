@@ -1,8 +1,6 @@
 from django.db import models
 import transformers
 
-# Create your models here.
-
 
 class InferenceModel(models.Model):
     name = models.CharField(max_length=32, null=False)
@@ -14,7 +12,14 @@ class InferenceModel(models.Model):
 
     def run_model(self):
         model = transformers.pipeline(model=self.model_name)
-        output = model(self.input, candidate_labels=self.metadata.split(","))
+
+        if self.model_name == "facebook/bart-large-mnli":
+            output = model(self.input, candidate_labels=self.metadata.split(","))
+        elif self.model_name == "google/vit-base-patch16-224":
+            output = model(images=self.input)
+            output = [{"score": round(pred["score"], 4), "label": pred["label"]} for pred in output]
+        else:
+            raise NotImplementedError()
 
         self.output = output
         self.save()

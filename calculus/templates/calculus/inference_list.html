@@ -9,7 +9,7 @@
           <p>Model: {{model.model_name}}</p>
           <p>Input: {{model.input}}</p>
           <p>Meta: {{model.metadata}}</p>
-          <p>Output: <pre>{{model.output}}</pre></p>
+          <p>Output: <pre>{{model.output | pprint}}</pre></p>
         </p>
         <a href="/calculus/runmodel/{{model.id}}" class="btn btn-primary">Run model</a>
       </div>
