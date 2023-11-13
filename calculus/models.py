@@ -29,6 +29,5 @@ class InferenceModel(models.Model):
         except KeyError:
             raise NotImplementedError()
 
-        output = driver.run(self.input, self.metadata)
-        self.output = output
+        self.output = driver.run(self.input, self.metadata)
         self.save()
