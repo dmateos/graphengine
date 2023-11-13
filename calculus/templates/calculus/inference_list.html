@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-  Sup
+  {% for model in object_list %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{model.name}} ({{model.id}})</h5>
+        <p class="card-text"> 
+          Model: {{model.model_name}}
+        </p>
+        <p class="card-text"> 
+          Input: {{model.input}}
+        </p>
+        <p class="card-text"> 
+          Meta: {{model.metadata}}
+        </p>
+        <p class="card-text">
+          {{model.output}}
+        </p>
+        <a href="/calculus/runmodel/{{model.id}}" class="btn btn-primary">Run model</a>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock %}

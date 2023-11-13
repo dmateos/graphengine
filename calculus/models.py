@@ -8,6 +8,13 @@ class InferenceModel(models.Model):
     name = models.CharField(max_length=32, null=False)
     model_name = models.CharField(max_length=32, null=False)
 
-    def load_model(self):
-        model = transformers.Pipeline(model=self.model_name)
-        model("test", candidate_labels=["test"])
+    input = models.TextField(null=True, blank=True)
+    metadata = models.TextField(null=True, blank=True)
+    output = models.TextField(null=True, blank=True)
+
+    def run_model(self):
+        model = transformers.pipeline(model=self.model_name)
+        output = model(self.input, candidate_labels=self.metadata.split(","))
+
+        self.output = output
+        self.save()
