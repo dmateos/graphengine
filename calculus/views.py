@@ -1,6 +1,11 @@
-# from django.shortcuts import render
+from django.views.generic import TemplateView, ListView
+from . import models
 
 
-# Create your views here.
-def root(request):
-    return "hello world"
+class IndexView(TemplateView):
+    template_name = "calculus/index.html"
+
+
+class InterenceListView(ListView):
+    template_name = "calculus/inference_list.html"
+    queryset = models.InferenceModel.objects.all()
