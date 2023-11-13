@@ -31,7 +31,8 @@ class Graph(models.Model):
     def create_point(self, label, data):
         try:
             new_seq = (
-                self.graphpoint_set.all().order_by("-sequence").first().sequence + 1
+                self.graphpoint_set.all().order_by("-sequence").first()
+                .sequence + 1
             )
         except AttributeError:
             new_seq = 0

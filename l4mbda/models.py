@@ -37,7 +37,11 @@ class JobRun(models.Model):
     state = models.CharField(
         max_length=16,
         default="not-run",
-        choices=(("not-run", "not-run"), ("running", "running"), ("done", "done")),
+        choices=(
+            ("not-run", "not-run"),
+            ("running", "running"),
+            ("done", "done")
+        ),
     )
 
     status = models.CharField(
