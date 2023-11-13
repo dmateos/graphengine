@@ -1,17 +1,16 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from .models import Job, JobRun
-
-
-def root(request):
-    return render(request, "l4mbda/index.html", {})
 
 
 def run_job(request, job_id):
     job = Job.objects.get(pk=job_id)
     job.run()
     return HttpResponseRedirect("/l4mbda/jobs")
+
+
+class IndexView(TemplateView):
+    template_name = "l4mbda/index.html"
 
 
 class JobView(ListView):
