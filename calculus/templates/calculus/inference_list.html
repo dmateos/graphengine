@@ -6,16 +6,10 @@
       <div class="card-body">
         <h5 class="card-title">{{model.name}} ({{model.id}})</h5>
         <p class="card-text"> 
-          Model: {{model.model_name}}
-        </p>
-        <p class="card-text"> 
-          Input: {{model.input}}
-        </p>
-        <p class="card-text"> 
-          Meta: {{model.metadata}}
-        </p>
-        <p class="card-text">
-          Output: <pre>{{model.output}}</pre>
+          <p>Model: {{model.model_name}}</p>
+          <p>Input: {{model.input}}</p>
+          <p>Meta: {{model.metadata}}</p>
+          <p>Output: <pre>{{model.output}}</pre></p>
         </p>
         <a href="/calculus/runmodel/{{model.id}}" class="btn btn-primary">Run model</a>
       </div>
