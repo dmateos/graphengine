@@ -7,3 +7,4 @@ pytest-django
 celery
 redis==5.0.1
 gunicorn
+mysqlclient
