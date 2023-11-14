@@ -25,7 +25,7 @@ def test_api_graphpoints_get():
     api_client = APIClient()
     graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
     graph.create_point("test point", 0)
-    response = api_client.get(f"/graphs/api/graphpoints/{graph.id}/")
+    response = api_client.get("/graphs/api/graphpoints/1/")
     assert response.status_code == 200
 
 
@@ -43,7 +43,7 @@ def test_api_graphpoints_get_from_sequence():
     for n in range(0, 5):
         graph.create_point(n, n)
 
-    response = api_client.get("/graphs/api/graphpoints/?sequence=2")
+    response = api_client.get(f"/graphs/api/graphpoints/?graph={graph.id}&sequence=2")
     assert response.status_code == 200
 
     response_parsed = json.loads(response.content)
@@ -61,7 +61,7 @@ def test_api_graphpoints_filter_by_graph():
     graph2.create_point("", "")
     graph2.create_point("", "")
 
-    response = api_client.get("/graphs/api/graphpoints/?graph=1")
+    response = api_client.get(f"/graphs/api/graphpoints/?graph={graph1.id}")
     assert response.status_code == 200
 
     response_parsed = json.loads(response.content)
