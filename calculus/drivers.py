@@ -19,3 +19,10 @@ class VitBasePatch16_224:
 class TestDriver:
     def run(self, input, metadata):
         return str(input) + " " + str(metadata)
+
+
+SUPPORTED_MODELS = {
+    "facebook/bart-large-mnli": BartLaegeMNLI(),
+    "google/vit-base-patch16-224": VitBasePatch16_224(),
+    "test": TestDriver(),
+}
