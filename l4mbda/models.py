@@ -5,6 +5,7 @@ class Job(models.Model):
     name = models.CharField(max_length=32, default="new job")
     code = models.TextField()
     times_to_run = models.IntegerField(default=1)
+    storage = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} {self.id}"
@@ -18,10 +19,12 @@ class Job(models.Model):
 
     def run_main(self):
         state = JobRun.objects.create(job=self)
+        injected_globals = {}  # can restrict
+        injected_locals = {"storage": self.storage}
 
         try:
             state.set_state("running")
-            exec(self.code)
+            exec(self.code, injected_globals, injected_locals)
             state.set_status("ok")
         except Exception as e:
             state.set_status("error")
