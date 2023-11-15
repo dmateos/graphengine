@@ -1,12 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.views.generic import ListView, TemplateView
+from django.views import View
 from .models import Job, JobRun
-
-
-def run_job(request, job_id):
-    job = Job.objects.get(pk=job_id)
-    job.run()
-    return HttpResponseRedirect("/l4mbda/jobs")
 
 
 class IndexView(TemplateView):
@@ -23,3 +18,10 @@ class JobView(ListView):
 
 class JobRunView(ListView):
     model = JobRun
+
+
+class JobRunnerView(View):
+    def get(self, request, pk):
+        job = Job.objects.get(pk=pk)
+        job.run()
+        return HttpResponseRedirect("/l4mbda/jobs")
