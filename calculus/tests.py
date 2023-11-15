@@ -1,5 +1,4 @@
 import django.test
-from unittest.mock import patch
 from .models import InferenceModel
 
 
@@ -8,10 +7,9 @@ class TestInterenceModelRun(django.test.TestCase):
         model = InferenceModel.objects.create(
             name="test",
             model_name="test",
-            input="test-input",
             metadata="test-meta",
             output="",
         )
 
-        model.run_model()
+        model.run_model("test-input")
         self.assertEqual(model.output, "test-input test-meta")
