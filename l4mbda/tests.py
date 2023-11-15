@@ -17,11 +17,21 @@ class TestJobModel(django.test.TestCase):
         storage = {"storage": "test-storage"}
 
         mock_exec.assert_called_with("hello world", {}, storage)
+
         assert mock_exec.call_count == 1
         assert job.jobrun_set.count() == 1
         for runs in job.jobrun_set.all():
             assert runs.state == "done"
             assert runs.status == "ok"
+
+    @patch("builtins.exec")
+    def test_job_run_main_saves_storage(self, mock_exec):
+        job = Job.objects.create(code="hello world", storage="test-storage")
+        job.storage = "new-storage"
+        job.run_main()
+
+        job_r = Job.objects.get(id=job.id)
+        assert job_r.storage == "new-storage"
 
     @patch("builtins.exec")
     def test_job_run_main_errors(self, mock_exec):
