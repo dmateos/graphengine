@@ -25,6 +25,8 @@ class Job(models.Model):
         try:
             state.set_state("running")
             exec(self.code, injected_globals, injected_locals)
+            self.storage = injected_locals["storage"]
+            self.save()
             state.set_status("ok")
         except Exception as e:
             state.set_status("error")
