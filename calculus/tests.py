@@ -24,7 +24,7 @@ class TestInferenceView(django.test.TestCase):
             output="",
         )
 
-        response = self.client.get(f"/calculus/imodels/{model.pk}")
+        response = self.client.get(f"/calculus/models/{model.pk}")
         self.assertEqual(response.status_code, 200)
 
     def test_post(self):
@@ -35,11 +35,11 @@ class TestInferenceView(django.test.TestCase):
             output="",
         )
 
-        response = self.client.post(f"/calculus/imodels/{model.pk}", {
+        response = self.client.post(f"/calculus/models/{model.pk}", {
             "input": "test-input",
         })
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, f"/calculus/imodels/{model.pk}")
+        self.assertEqual(response.url, f"/calculus/models/{model.pk}")
         model.refresh_from_db()
         self.assertEqual(model.output, "test-input test-meta")

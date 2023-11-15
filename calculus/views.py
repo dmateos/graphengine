@@ -35,4 +35,4 @@ class InferenceView(View):
             model_input = input_form.cleaned_data["input"]
             model.run_model(model_input)
 
-        return HttpResponseRedirect(reverse("imodel_detail", args=[pk]))
+        return HttpResponseRedirect(reverse("model_detail", args=[pk]))

@@ -2,10 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("aimodel/", views.InferenceListView.as_view(), name="imodel"),
-    path("imodels/<int:pk>",
+    path("models/", views.InferenceListView.as_view(), name="model"),
+    path("models/<int:pk>",
          views.InferenceView.as_view(),
-         name="imodel_detail"
+         name="model_detail"
          ),
     path("", views.IndexView.as_view()),
 ]
