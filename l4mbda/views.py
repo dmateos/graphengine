@@ -1,6 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.views.generic import ListView, TemplateView
 from django.views import View
+from django.urls import reverse
 from .models import Job, JobRun
 
 
@@ -24,4 +25,4 @@ class JobRunnerView(View):
     def get(self, request, pk):
         job = Job.objects.get(pk=pk)
         job.run()
-        return HttpResponseRedirect("/l4mbda/jobs")
+        return HttpResponseRedirect(reverse("job_list"))
