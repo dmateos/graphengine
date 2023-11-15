@@ -7,12 +7,6 @@ from . import models
 from . import forms
 
 
-def run_model(request, model_id, model_input):
-    model = models.InferenceModel.objects.get(pk=model_id)
-    model.run_model(model_input)
-    return HttpResponseRedirect("/calculus/aimodel")
-
-
 class IndexView(TemplateView):
     template_name = "calculus/index.html"
 

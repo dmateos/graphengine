@@ -11,3 +11,5 @@ mysqlclient
 transformers
 pillow
 torch
+django-crispy-forms
+crispy-bootstrap5

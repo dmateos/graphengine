@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "rest_framework",
     "rest_framework.authtoken",
     "bootstrap5",
@@ -158,3 +160,5 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
+
+CRISPY_TEMPLATE_PACK = 'Bootstrap5'
