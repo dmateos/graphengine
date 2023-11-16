@@ -5,9 +5,14 @@ class Job(models.Model):
     name = models.CharField(max_length=32, default="new job")
     code = models.TextField()
     times_to_run = models.IntegerField(default=1)
-    storage = models.TextField(default="")
+    storage = models.TextField(default="", null=True, blank=True)
 
-    next_job = models.ForeignKey("self", on_delete=models.CASCADE, null=True)
+    next_job = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.name} {self.id}"
