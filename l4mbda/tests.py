@@ -25,6 +25,18 @@ class TestJobModel(django.test.TestCase):
             assert runs.status == "ok"
 
     @patch("builtins.exec")
+    def test_job_run_next_job_runs_and_storage_propogates(self, mock_exec):
+        job = Job.objects.create(code="hello world", storage="test-storage")
+        next_job = Job.objects.create(code="hello world2")
+        storage = {"storage": "test-storage"}
+
+        job.next_job = next_job
+        job.run_main()
+
+        assert mock_exec.call_count == 2
+        mock_exec.assert_called_with("hello world2", {}, storage)
+
+    @patch("builtins.exec")
     def test_job_run_main_saves_storage(self, mock_exec):
         job = Job.objects.create(code="hello world", storage="test-storage")
         job.storage = "new-storage"
@@ -67,7 +79,6 @@ class TestJobModel(django.test.TestCase):
 
         mock_run.delay.assert_called_with(job.id)
         assert mock_run.delay.call_count == 1
-        assert True
 
     @patch("l4mbda.tasks.run_job")
     def test_job_run_multiple(self, mock_run):
@@ -76,7 +87,6 @@ class TestJobModel(django.test.TestCase):
 
         mock_run.delay.assert_called_with(job.id)
         assert mock_run.delay.call_count == 10
-        assert True
 
     def test_job_to_str(self):
         job = Job.objects.create(code="hello world", times_to_run=10)

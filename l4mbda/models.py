@@ -7,6 +7,8 @@ class Job(models.Model):
     times_to_run = models.IntegerField(default=1)
     storage = models.TextField(default="")
 
+    next_job = models.ForeignKey("self", on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return f"{self.name} {self.id}"
 
@@ -27,6 +29,12 @@ class Job(models.Model):
             exec(self.code, injected_globals, injected_locals)
             self.storage = injected_locals["storage"]
             self.save()
+
+            if self.next_job:
+                self.next_job.storage = self.storage
+                self.next_job.save()
+                self.next_job.run_main()
+
             state.set_status("ok")
         except Exception as e:
             state.set_status("error")
