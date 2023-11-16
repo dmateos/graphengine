@@ -36,6 +36,9 @@ class TestJobModel(django.test.TestCase):
         assert mock_exec.call_count == 2
         mock_exec.assert_called_with("hello world2", {}, storage)
 
+        next_job.refresh_from_db()
+        assert next_job.storage == "test-storage"
+
     @patch("builtins.exec")
     def test_job_run_main_saves_storage(self, mock_exec):
         job = Job.objects.create(code="hello world", storage="test-storage")
