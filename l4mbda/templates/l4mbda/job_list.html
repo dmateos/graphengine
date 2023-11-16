@@ -6,10 +6,10 @@
       <div class="card-body">
         <h5 class="card-title">{{job.name}} ({{job.id}})</h5>
         <p class="card-text"> 
-          <p>Times to run: {{job.times_to_run}}</p>
-          <p>Total runs: {{job.jobrun_set.all.count}}</p>
-          <p>Next function: {{job.next_job}}</p>
-          <p>Storage: {{job.storage}}</p>
+          Times to run: {{job.times_to_run}}<br/>
+          Total runs: {{job.jobrun_set.all.count}}<br/>
+          Next function: {{job.next_job}}<br/>
+          Storage: {{job.storage}}<br/>
         </p>
         <p class="card-text">
           <pre>{{job.code}}</pre>

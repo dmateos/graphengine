@@ -7,11 +7,10 @@
         <h5 class="card-title">{{model.name}} ({{model.id}})</h5>
 
         <p class="card-text"> 
-          <p>Model: {{model.model_name}}</p>
-          <p>Meta: {{model.metadata}}</p>
+          Model: {{model.model_name}}<br/>
+          Meta: {{model.metadata}}<br/>
           <a href="{% url "model_detail" model.id %}"> Detail </a>
         </p>
-
       </div>
     </div>
   {% endfor %}

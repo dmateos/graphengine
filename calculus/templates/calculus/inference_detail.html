@@ -8,15 +8,13 @@
         <h5 class="card-title">{{model.name}} ({{model.id}})</h5>
 
         <p class="card-text"> 
-            <p>Model: {{model.model_name}}</p>
-            <p>Meta: {{model.metadata}}</p>
-
+            Model: {{model.model_name}}<br/>
+            Meta: {{model.metadata}}<br/>
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy}}
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
-
             <p>Output: <pre>{{model.output | pprint}}</pre></p>
         </p>
     </div>
