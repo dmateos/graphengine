@@ -2,6 +2,7 @@ from django.http.response import HttpResponseRedirect
 from django.views.generic import ListView, TemplateView
 from django.views import View
 from django.urls import reverse
+from django.shortcuts import render
 from .models import Job, JobRun
 
 
@@ -26,3 +27,15 @@ class JobRunnerView(View):
         job = Job.objects.get(pk=pk)
         job.run()
         return HttpResponseRedirect(reverse("job_list"))
+
+
+class JobFlowView(View):
+    def get(self, request):
+        return render(
+            request,
+            "l4mbda/job_flow.html",
+            {}
+        )
+
+    def post(self, request):
+        pass
