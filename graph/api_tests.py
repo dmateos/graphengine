@@ -92,4 +92,21 @@ def test_api_graphpoints_put():
 
 @pytest.mark.django_db
 def test_api_graphpoints_push_increases_sequence():
-    pass
+    user = User(username="test", email="test@test.com")
+    user.is_superuser = True
+    user.set_password("password")
+    user.save()
+
+    api_client = APIClient()
+    api_client.force_authenticate(user=user)
+    graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
+    graph.create_point("", "")
+
+    api_client.post(
+        "/graphs/api/graphpoints/",
+        json.dumps({"graph": graph.id, "label": "test", "data": 1}),
+        content_type="application/json"
+    )
+
+    assert models.GraphPoint.objects.count() == 2
+    assert models.GraphPoint.objects.last().sequence == 1
