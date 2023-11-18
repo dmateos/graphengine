@@ -5,6 +5,8 @@ class Job(models.Model):
     name = models.CharField(max_length=32, default="new job")
     code = models.TextField()
     times_to_run = models.IntegerField(default=1)
+    
+    # TODO should be in job run, race condition?
     storage = models.TextField(default="", null=True, blank=True)
 
     next_job = models.ForeignKey(
