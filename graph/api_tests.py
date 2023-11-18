@@ -2,6 +2,7 @@ import pytest
 import json
 
 from rest_framework.test import APIClient
+from django.contrib.auth.models import User
 from . import models
 
 
@@ -69,8 +70,24 @@ def test_api_graphpoints_filter_by_graph():
 
 
 @pytest.mark.django_db
-def test_api_graphpoints_push():
-    pass
+def test_api_graphpoints_put():
+    user = User(username="test", email="test@test.com")
+    user.is_superuser = True
+    user.set_password("password")
+    user.save()
+
+    api_client = APIClient()
+    api_client.force_authenticate(user=user)
+    graph = models.Graph.objects.create(name="TestGraph", type=models.GRAPHTYPE_BAR)
+    graph.create_point("", "")
+
+    response = api_client.post(
+        "/graphs/api/graphpoints/",
+        json.dumps({"graph": graph.id, "sequence": 1, "label": "test", "data": 1}),
+        content_type="application/json"
+    )
+    assert response.status_code == 201
+    assert models.GraphPoint.objects.count() == 2
 
 
 @pytest.mark.django_db
