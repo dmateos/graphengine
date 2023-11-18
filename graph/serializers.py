@@ -12,3 +12,9 @@ class GraphPointSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.GraphPoint
         fields = ["label", "data", "graph", "created", "sequence"]
+
+    def create(self, validated_data):
+        graph = validated_data.pop("graph")
+        label = validated_data.pop("label")
+        data = validated_data.pop("data")
+        return graph.create_point(label, data)

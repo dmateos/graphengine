@@ -83,7 +83,7 @@ def test_api_graphpoints_put():
 
     response = api_client.post(
         "/graphs/api/graphpoints/",
-        json.dumps({"graph": graph.id, "sequence": 1, "label": "test", "data": 1}),
+        json.dumps({"graph": graph.id, "label": "test", "data": 1}),
         content_type="application/json"
     )
     assert response.status_code == 201
