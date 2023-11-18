@@ -110,3 +110,12 @@ def test_api_graphpoints_push_increases_sequence():
 
     assert models.GraphPoint.objects.count() == 2
     assert models.GraphPoint.objects.last().sequence == 1
+
+    api_client.post(
+        "/graphs/api/graphpoints/",
+        json.dumps({"graph": graph.id, "label": "test", "data": 1}),
+        content_type="application/json"
+    )
+
+    assert models.GraphPoint.objects.count() == 3
+    assert models.GraphPoint.objects.last().sequence == 2
