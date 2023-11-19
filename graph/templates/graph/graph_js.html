@@ -17,21 +17,21 @@
                 type: "GET",
                 data: {},
                 success: function(data) {
+                    if(shift_count != 0) {
+                        while(graphChart.data.labels.length+1 > shift_count) {
+                            graphChart.data.labels.shift();
+                            graphChart.data.datasets.forEach((dataset => {
+                                dataset.data.shift();
+                            }));
+                        }
+                    }
+
                     data.forEach(function(obj) {
                         graphChart.data.labels.push(obj.label)
                         graphChart.data.datasets.forEach((dataset => {
                             dataset.data.push(obj.data);
                         }));
                         sequence = obj.sequence;
-
-                        if(shift_count != 0) {
-                            while(graphChart.data.labels.length > shift_count) {
-                                graphChart.data.labels.shift();
-                                graphChart.data.datasets.forEach((dataset => {
-                                    dataset.data.shift();
-                                }));
-                            }
-                        }
                     });
                     graphChart.update();
                     console.log("graph request success");
