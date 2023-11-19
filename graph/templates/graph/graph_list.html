@@ -13,7 +13,7 @@
                 <div class="col">
                     <div class="graph_{{graph.id}} card bg-dark">
                         <div class="card-body">
-                            <a class="text-white" href={% url 'graphs' graph.id %}>{{ graph.name }}</a>
+                            <a class="text-white" href={% url 'graphs' graph.id %}>{{ graph.name }}, shift on {{ graph.shift_count }}</a>
                             <div style="width: 800px;"> <canvas id="graph-container-{{graph.id}}"></canvas> </div>
                             <script>
                                 setup_chart("graph-container-{{graph.id}}", 1000, "{{graph.type}}", {{graph.id}}, {{graph.shift_count}}, "{{graph.primary_color}}");
