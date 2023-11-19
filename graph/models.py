@@ -16,6 +16,8 @@ class Graph(models.Model):
         ),
     )
 
+    shift_count = models.IntegerField(null=False, default=0)
+
     def get_points(self):
         data = [float(n.data) for n in self.graphpoint_set.all()]
         return data

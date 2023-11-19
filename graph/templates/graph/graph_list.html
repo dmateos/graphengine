@@ -16,7 +16,7 @@
                             <a class="text-white" href={% url 'graphs' graph.id %}>{{ graph.name }}</a>
                             <div style="width: 800px;"> <canvas id="graph-container-{{graph.id}}"></canvas> </div>
                             <script>
-                                setup_chart("graph-container-{{graph.id}}", 1000, "{{graph.type}}", {{graph.id}});
+                                setup_chart("graph-container-{{graph.id}}", 1000, "{{graph.type}}", {{graph.id}}, {{graph.shift_count}});
                             </script>
                         </div>
                     </div>

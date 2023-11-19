@@ -1,5 +1,6 @@
 <script>
-    function setup_chart(name, rate, graph_type, graph_id) {
+    function setup_chart(name, rate, graph_type, graph_id, shift_count) {
+        console.log(shift_count);
         const graphChart = new Chart(document.getElementById(name), {
             type: graph_type,
             data: {
@@ -23,6 +24,15 @@
                         }));
                         sequence = obj.sequence;
                     });
+
+                    if(shift_count != 0) {
+                        while(graphChart.data.labels.length > shift_count) {
+                            graphChart.data.labels.shift();
+                            graphChart.data.datasets.forEach((dataset => {
+                                dataset.data.shift();
+                            }));
+                        }
+                    }
                     graphChart.update();
                     console.log("graph request success");
                 },
