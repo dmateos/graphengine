@@ -10,7 +10,11 @@
     <div class="container-fluid">
         <div class="graph_{{graph.id}} card bg-dark">
             <div class="card-body">
-                <div class="text-white"> This is graph {{ graph.name }} ({{ graph.id }}) {{graph.shift_count}}</div>
+                <div class="text-white"> This is graph {{ graph.name }} ({{ graph.id }})</div>
+                <p>
+                    Shift: {{ graph.shift_count }},
+                    Type: {{ graph.type }}
+                </p>
                 <div style="width: 800px;"> <canvas id="graph-container"></canvas> </div>
                 <script>
                     setup_chart("graph-container", 1000, "{{graph.type}}", {{graph.id}}, {{graph.shift_count}}, "{{graph.primary_color}}");
