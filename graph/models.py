@@ -6,6 +6,12 @@ GRAPHTYPE_BAR = "bar"
 
 class Graph(models.Model):
     name = models.CharField(max_length=32, null=False)
+    shift_count = models.IntegerField(null=False, default=0)
+    primary_color = models.CharField(
+        max_length=16,
+        null=False,
+        default="#68729e"
+    )
     type = models.CharField(
         max_length=16,
         null=False,
@@ -15,8 +21,6 @@ class Graph(models.Model):
             (GRAPHTYPE_BAR, "bar"),
         ),
     )
-
-    shift_count = models.IntegerField(null=False, default=0)
 
     def get_points(self):
         data = [float(n.data) for n in self.graphpoint_set.all()]

@@ -1,11 +1,11 @@
 <script>
-    function setup_chart(name, rate, graph_type, graph_id, shift_count) {
+    function setup_chart(name, rate, graph_type, graph_id, shift_count, primary_color) {
         console.log(shift_count);
         const graphChart = new Chart(document.getElementById(name), {
             type: graph_type,
             data: {
                 labels: "",
-                datasets: [ { label: '', data: "", } ]
+                datasets: [{ label: '', data: "", backgroundColor: primary_color, borderColor: primary_color, fill: false}]
             }
         });
 
