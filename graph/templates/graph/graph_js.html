@@ -23,16 +23,16 @@
                             dataset.data.push(obj.data);
                         }));
                         sequence = obj.sequence;
-                    });
 
-                    if(shift_count != 0) {
-                        while(graphChart.data.labels.length > shift_count) {
-                            graphChart.data.labels.shift();
-                            graphChart.data.datasets.forEach((dataset => {
-                                dataset.data.shift();
-                            }));
+                        if(shift_count != 0) {
+                            while(graphChart.data.labels.length > shift_count) {
+                                graphChart.data.labels.shift();
+                                graphChart.data.datasets.forEach((dataset => {
+                                    dataset.data.shift();
+                                }));
+                            }
                         }
-                    }
+                    });
                     graphChart.update();
                     console.log("graph request success");
                 },
