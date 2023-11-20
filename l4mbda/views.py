@@ -13,10 +13,6 @@ class IndexView(TemplateView):
 class JobView(ListView):
     model = Job
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
 
 class JobRunView(ListView):
     model = JobRun
