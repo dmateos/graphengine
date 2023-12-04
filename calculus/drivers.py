@@ -1,10 +1,10 @@
 import transformers
+import json
 # from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
-from langchain.pydantic_v1 import BaseModel
+from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
-
 
 
 # Sentence classification
@@ -41,19 +41,21 @@ class TestDriver:
 
 
 class Step(BaseModel):
-    id: str
-    description: str
-    detailed_descrition: str
+    id: str = Field(description="The step number")
+    description: str = Field(description="The step description")
+    detailed_descrition: str = Field(description="The step detailed description")
 
 
 class Process(BaseModel):
-    steps: list[Step]
+    description: str = Field(description="The process description")
+    steps: list[Step] = Field(description="The process steps")
+    step_count: int = Field(description="The process step count")
 
 
 class OpenAIDriver:
     def run(self, input, metadata):
         llm = OpenAI(
-            model_name="gpt-3.5-turbo-1106"
+            model_name="gpt-4"
         )
 
         query = f"#{input}"
@@ -63,8 +65,9 @@ class OpenAIDriver:
             input_variables=["query"],
             partial_variables={"format_instructions": parser.get_format_instructions()},
         )
-        output = llm(prompt.format(query=query))
-        parser.parse(output)
+        output = llm(prompt.format_prompt(query=query).to_string())
+        output = json.loads(parser.parse(output).json())
+        output = json.dumps(output, indent=4)
         return output
 
 
