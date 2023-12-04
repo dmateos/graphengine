@@ -43,7 +43,7 @@ class TestDriver:
 class Step(BaseModel):
     id: str = Field(description="The step number")
     description: str = Field(description="The step description")
-    detailed_descrition: str = Field(description="The step detailed description")
+    detailed_description: str = Field(description="The step detailed description")
 
 
 class Process(BaseModel):
@@ -55,7 +55,7 @@ class Process(BaseModel):
 class OpenAIDriver:
     def run(self, input, metadata):
         llm = OpenAI(
-            model_name="gpt-4"
+            model_name=metadata
         )
 
         query = f"#{input}"
