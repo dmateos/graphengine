@@ -13,3 +13,7 @@ pillow
 torch
 django-crispy-forms
 crispy-bootstrap5
+
+langchain 
+openai
+jsonschema
