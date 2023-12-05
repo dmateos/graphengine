@@ -1,7 +1,7 @@
 import transformers
 import json
-# from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
@@ -54,7 +54,7 @@ class Process(BaseModel):
 
 class OpenAIDriver:
     def run(self, input, metadata):
-        llm = OpenAI(
+        llm = ChatOpenAI(
             model_name=metadata
         )
 
@@ -65,7 +65,14 @@ class OpenAIDriver:
             input_variables=["query"],
             partial_variables={"format_instructions": parser.get_format_instructions()},
         )
-        output = llm(prompt.format_prompt(query=query).to_string())
+
+        llm_chain = LLMChain(
+            llm=llm,
+            prompt=prompt,
+            verbose=True
+        )
+
+        output = llm_chain.run(query)
         output = json.loads(parser.parse(output).json())
         output = json.dumps(output, indent=4)
         return output
