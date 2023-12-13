@@ -35,6 +35,13 @@ class OwlvitBasePatch32:
         return output
 
 
+class TransformersPipelineLLM:
+    def run(self, input, metadata):
+        model = transformers.pipeline(model=metadata)
+        output = model(input)
+        return output
+
+
 class TestDriver:
     def run(self, input, metadata):
         return f"{input} {metadata}"
@@ -52,7 +59,7 @@ class Process(BaseModel):
     step_count: int = Field(description="The process step count")
 
 
-class OpenAIDriver:
+class ChatGPTProcessPlanner:
     def run(self, input, metadata):
         llm = ChatOpenAI(
             model_name=metadata
@@ -79,9 +86,10 @@ class OpenAIDriver:
 
 
 SUPPORTED_MODELS = {
+    "test": TestDriver(),
     "facebook/bart-large-mnli": BartLaegeMNLI(),
     "google/vit-base-patch16-224": VitBasePatch16_224(),
     "google/owlvit-base-patch32": OwlvitBasePatch32(),
-    "openai": OpenAIDriver(),
-    "test": TestDriver(),
+    "ChatGPTProcessPlanning": ChatGPTProcessPlanner(),
+    "TransformersPipelineLLM": TransformersPipelineLLM(),
 }
