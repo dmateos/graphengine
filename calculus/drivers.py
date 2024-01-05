@@ -5,6 +5,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
+from torchvision.models import resnet50, ResNet50_Weights
 
 
 # Sentence classification
@@ -22,6 +23,12 @@ class VitBasePatch16_224:
         output = model(images=input)
         output = [{"score": round(pred["score"], 4), "label": pred["label"]} for pred in output]
         return output
+
+
+# Image output
+class Rresnet50:
+    def run(self, input, metadata):
+        pass
 
 
 # Image detection

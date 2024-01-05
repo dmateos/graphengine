@@ -1,6 +1,18 @@
 from django.db import models
 from . import drivers
 
+SUPPORTED_OUTPUT_TYPES = [
+    "text",
+    "text_stream",
+    "image",
+    "image_stream"
+]
+
+SUPPORTED_INPUT_TYPES = [
+    "text",
+    "image",
+]
+
 
 class InferenceModel(models.Model):
     name = models.CharField(max_length=32, null=False)
@@ -12,6 +24,20 @@ class InferenceModel(models.Model):
 
     metadata = models.TextField(null=True, blank=True)
     output = models.TextField(null=True, blank=True)
+
+    output_type = models.CharField(
+        max_length=32,
+        null=True,
+        blank=True,
+        choices=[(k, k) for k in SUPPORTED_OUTPUT_TYPES]
+    )
+
+    input_type = models.CharField(
+        max_length=32,
+        null=True,
+        blank=True,
+        choices=[(k, k) for k in SUPPORTED_INPUT_TYPES]
+    )
 
     def __str__(self):
         return f"{self.name} {self.model_name}"
