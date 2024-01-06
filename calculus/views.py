@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.views import View
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from . import models
@@ -17,11 +17,11 @@ class InferenceListView(ListView):
 
 
 class InferenceView(View):
-    def get_input_form(self, model, post_data=None):
+    def get_input_form(self, model, post_data=None, file_data=None):
         if model.input_type == "text":
             return forms.TextInputForm(post_data)
         elif model.input_type == "image":
-            return forms.ImageInputForm(post_data)
+            return forms.ImageInputForm(post_data, file_data)
 
     def get(self, request, pk):
         model = models.InferenceModel.objects.get(pk=pk)
@@ -35,10 +35,12 @@ class InferenceView(View):
 
     def post(self, request, pk):
         model = models.InferenceModel.objects.get(pk=pk)
-        input_form = self.get_input_form(model, request.POST)
+        input_form = self.get_input_form(model, request.POST, request.FILES)
 
         if input_form.is_valid():
             model_input = input_form.cleaned_data["input"]
             model.run_model(model_input)
+        else:
+            return HttpResponse(status=500)
 
         return HttpResponseRedirect(reverse("model_detail", args=[pk]))

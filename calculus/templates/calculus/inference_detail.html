@@ -12,7 +12,7 @@
             Meta: {{model.metadata}}<br/>
             Input Type: {{model.input_type}}<br/>
             Output Type: {{model.output_type}}<br/>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy}}
                 <button class="btn btn-primary" type="submit">Submit</button>

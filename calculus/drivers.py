@@ -60,6 +60,15 @@ class TestDriver:
 
 class TestDriverImage:
     def run(self, input, metadata):
+        buffered = io.BytesIO()
+        im_out = Image.open(input)
+        im_out.save(buffered, format="JPEG")
+        image = base64.b64encode(buffered.getvalue())
+        return str(image)[2:-1]
+
+
+class TestDriverRNGImage:
+    def run(self, input, metadata):
         a = np.random.rand(1024, 1024, 3) * 255
         im_out = Image.fromarray(a.astype('uint8')).convert('RGB')
         buffered = io.BytesIO()
@@ -109,6 +118,7 @@ class ChatGPTProcessPlanner:
 SUPPORTED_MODELS = {
     "test": TestDriver(),
     "testImage": TestDriverImage(),
+    "testRNGImage": TestDriverRNGImage(),
     "facebook/bart-large-mnli": BartLaegeMNLI(),
     "google/vit-base-patch16-224": VitBasePatch16_224(),
     "google/owlvit-base-patch32": OwlvitBasePatch32(),

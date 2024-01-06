@@ -6,4 +6,4 @@ class TextInputForm(forms.Form):
 
 
 class ImageInputForm(forms.Form):
-    input = forms.ImageField()
+    input = forms.FileField(required=True)
