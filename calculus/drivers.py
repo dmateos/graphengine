@@ -16,7 +16,31 @@ from langchain.output_parsers import PydanticOutputParser
 from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.utils import draw_bounding_boxes
 from torchvision.transforms.functional import to_pil_image, pil_to_tensor
-from torchvision.io import decode_image
+
+
+# Test drivers
+class TestDriver:
+    def run(self, input, metadata):
+        return f"{input} {metadata}"
+
+
+class TestDriverImage:
+    def run(self, input, metadata):
+        buffered = io.BytesIO()
+        im_out = Image.open(input)
+        im_out.save(buffered, format="JPEG")
+        image = base64.b64encode(buffered.getvalue())
+        return str(image)[2:-1]
+
+
+class TestDriverRNGImage:
+    def run(self, input, metadata):
+        a = np.random.rand(1024, 1024, 3) * 255
+        im_out = Image.fromarray(a.astype('uint8')).convert('RGB')
+        buffered = io.BytesIO()
+        im_out.save(buffered, format="JPEG")
+        image = base64.b64encode(buffered.getvalue())
+        return str(image)[2:-1]
 
 
 # Sentence classification
@@ -71,6 +95,7 @@ class OwlvitBasePatch32:
         return output
 
 
+# LLM Tests, GPT-2 etc
 class TransformersPipelineLLM:
     def run(self, input, metadata):
         model = transformers.pipeline(model=metadata)
@@ -78,30 +103,7 @@ class TransformersPipelineLLM:
         return output
 
 
-class TestDriver:
-    def run(self, input, metadata):
-        return f"{input} {metadata}"
-
-
-class TestDriverImage:
-    def run(self, input, metadata):
-        buffered = io.BytesIO()
-        im_out = Image.open(input)
-        im_out.save(buffered, format="JPEG")
-        image = base64.b64encode(buffered.getvalue())
-        return str(image)[2:-1]
-
-
-class TestDriverRNGImage:
-    def run(self, input, metadata):
-        a = np.random.rand(1024, 1024, 3) * 255
-        im_out = Image.fromarray(a.astype('uint8')).convert('RGB')
-        buffered = io.BytesIO()
-        im_out.save(buffered, format="JPEG")
-        image = base64.b64encode(buffered.getvalue())
-        return str(image)[2:-1]
-
-
+# Structured JSON output via openai/gpt3/4
 class Step(BaseModel):
     id: str = Field(description="The step number")
     description: str = Field(description="The step description")
