@@ -17,7 +17,13 @@
                 {{ form|crispy}}
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
-            <p>Output: <pre>{{model.output | pprint}}</pre></p>
+            {% if model.output_type == "text" %}
+                <p>Output: <pre>{{model.output | pprint}}</pre></p>
+            {% elif model.output_type == "image" %}
+                <p>Output: <pre>image not implemented</pre></p>
+            {% else %}
+                <p>Output: <pre>not implemented</pre></p>
+            {% endif %}
         </p>
     </div>
 </div>

@@ -15,6 +15,28 @@ class TestInterenceModelRun(django.test.TestCase):
         model.run_model("test-input")
         self.assertEqual(model.output, "test-input test-meta")
 
+    def test_model_get_output_text(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="test-output",
+        )
+
+        output = model.get_output()
+        self.assertEqual(output, "test-output")
+
+    def test_model_set_output_text(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="",
+        )
+
+        model.set_output("test-output")
+        self.assertEqual(model.output, "test-output")
+
 
 class TestInferenceView(django.test.TestCase):
     def test_get(self):

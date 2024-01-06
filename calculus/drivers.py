@@ -1,11 +1,13 @@
 import transformers
 import json
+import numpy as np
+import base64
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
-from torchvision.models import resnet50, ResNet50_Weights
+#from torchvision.models import resnet50, ResNet50_Weights
 
 
 # Sentence classification
@@ -54,6 +56,16 @@ class TestDriver:
         return f"{input} {metadata}"
 
 
+class TestDriverImage:
+    def run(self, input, metadata):
+        # Generate a image out of random noise and return it
+        image = np.random.randint(0, 255, (224, 224, 3))
+        # Encode as base64
+        image = image.tobytes()
+        image = base64.b64encode(image)
+        return image
+
+
 class Step(BaseModel):
     id: str = Field(description="The step number")
     description: str = Field(description="The step description")
@@ -94,6 +106,7 @@ class ChatGPTProcessPlanner:
 
 SUPPORTED_MODELS = {
     "test": TestDriver(),
+    "testImage": TestDriverImage(),
     "facebook/bart-large-mnli": BartLaegeMNLI(),
     "google/vit-base-patch16-224": VitBasePatch16_224(),
     "google/owlvit-base-patch32": OwlvitBasePatch32(),
