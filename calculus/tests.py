@@ -1,5 +1,6 @@
 import django.test
 from .models import InferenceModel
+from .views import InferenceView
 
 
 class TestInterenceModelRun(django.test.TestCase):
@@ -43,3 +44,29 @@ class TestInferenceView(django.test.TestCase):
         self.assertEqual(response.url, f"/calculus/models/{model.pk}")
         model.refresh_from_db()
         self.assertEqual(model.output, "test-input test-meta")
+
+    def test_get_input_form_returns_text_form(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="",
+            input_type="text",
+        )
+
+        view = InferenceView()
+        input_form = view.get_input_form(model)
+        self.assertEqual(input_form.__class__.__name__, "TextInputForm")
+
+    def test_get_input_form_returns_image_form(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="",
+            input_type="image",
+        )
+
+        view = InferenceView()
+        input_form = view.get_input_form(model)
+        self.assertEqual(input_form.__class__.__name__, "ImageInputForm")

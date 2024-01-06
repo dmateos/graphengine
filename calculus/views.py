@@ -17,9 +17,15 @@ class InferenceListView(ListView):
 
 
 class InferenceView(View):
+    def get_input_form(self, model, post_data=None):
+        if model.input_type == "text":
+            return forms.TextInputForm(post_data)
+        elif model.input_type == "image":
+            return forms.ImageInputForm(post_data)
+
     def get(self, request, pk):
         model = models.InferenceModel.objects.get(pk=pk)
-        input_form = forms.InputForm()
+        input_form = self.get_input_form(model)
 
         return render(
             request,
@@ -29,7 +35,7 @@ class InferenceView(View):
 
     def post(self, request, pk):
         model = models.InferenceModel.objects.get(pk=pk)
-        input_form = forms.InputForm(request.POST)
+        input_form = self.get_input_form(model, request.POST)
 
         if input_form.is_valid():
             model_input = input_form.cleaned_data["input"]

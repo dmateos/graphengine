@@ -1,5 +1,9 @@
 from django import forms
 
 
-class InputForm(forms.Form):
+class TextInputForm(forms.Form):
     input = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
+
+
+class ImageInputForm(forms.Form):
+    input = forms.ImageField()

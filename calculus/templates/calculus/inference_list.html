@@ -9,6 +9,8 @@
         <p class="card-text"> 
           Driver: {{model.model_name}}<br/>
           Meta: {{model.metadata}}<br/>
+          Input Type: {{model.input_type}}<br/>
+          Output Type: {{model.output_type}}<br/>
           <a href="{% url "model_detail" model.id %}"> Detail </a>
         </p>
       </div>

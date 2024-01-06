@@ -27,15 +27,13 @@ class InferenceModel(models.Model):
 
     output_type = models.CharField(
         max_length=32,
-        null=True,
-        blank=True,
+        default="text",
         choices=[(k, k) for k in SUPPORTED_OUTPUT_TYPES]
     )
 
     input_type = models.CharField(
         max_length=32,
-        null=True,
-        blank=True,
+        default="text",
         choices=[(k, k) for k in SUPPORTED_INPUT_TYPES]
     )
 
