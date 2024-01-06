@@ -2,6 +2,8 @@ import transformers
 import json
 import numpy as np
 import base64
+import io
+from PIL import Image
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -58,12 +60,12 @@ class TestDriver:
 
 class TestDriverImage:
     def run(self, input, metadata):
-        # Generate a image out of random noise and return it
-        image = np.random.randint(0, 255, (224, 224, 3))
-        # Encode as base64
-        image = image.tobytes()
-        image = base64.b64encode(image)
-        return image
+        a = np.random.rand(1024, 1024, 3) * 255
+        im_out = Image.fromarray(a.astype('uint8')).convert('RGB')
+        buffered = io.BytesIO()
+        im_out.save(buffered, format="JPEG")
+        image = base64.b64encode(buffered.getvalue())
+        return str(image)[2:-1]
 
 
 class Step(BaseModel):

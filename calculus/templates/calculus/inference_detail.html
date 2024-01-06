@@ -18,9 +18,11 @@
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
             {% if model.output_type == "text" %}
-                <p>Output: <pre>{{model.output | pprint}}</pre></p>
+                <p>Output: <pre>{{model.get_output | pprint}}</pre></p>
             {% elif model.output_type == "image" %}
-                <p>Output: <pre>image not implemented</pre></p>
+                <p>Output: 
+                    <img src="data:image/jpg;base64,{{model.get_output}}"/>
+                </p>
             {% else %}
                 <p>Output: <pre>not implemented</pre></p>
             {% endif %}

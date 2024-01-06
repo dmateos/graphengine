@@ -17,3 +17,5 @@ crispy-bootstrap5
 langchain 
 openai
 jsonschema
+torchvision
+pillow
