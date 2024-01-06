@@ -23,6 +23,10 @@
                 <p>Output: 
                     <img src="data:image/jpg;base64,{{model.get_output}}"/>
                 </p>
+            {% elif model.output_type == "image_stream" %}
+                <p>Output stream: 
+                    <img src="data:image/jpg;base64,{{model.get_output}}"/>
+                </p>
             {% else %}
                 <p>Output: <pre>not implemented</pre></p>
             {% endif %}

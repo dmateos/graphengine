@@ -3,13 +3,20 @@ import json
 import numpy as np
 import base64
 import io
+import torch
+
 from PIL import Image
+
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
-#from torchvision.models import resnet50, ResNet50_Weights
+
+from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
+from torchvision.utils import draw_bounding_boxes
+from torchvision.transforms.functional import to_pil_image, pil_to_tensor
+from torchvision.io import decode_image
 
 
 # Sentence classification
@@ -32,7 +39,25 @@ class VitBasePatch16_224:
 # Image output
 class Rresnet50:
     def run(self, input, metadata):
-        pass
+        img = Image.open(input)
+        img = pil_to_tensor(img)
+
+        weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=0.9)
+        model.eval()
+
+        preprocess = weights.transforms()
+        batch = [preprocess(img)]
+
+        prediction = model(batch)[0]
+        labels = [weights.meta["categories"][i] for i in prediction["labels"]]
+        box = draw_bounding_boxes(img, boxes=prediction["boxes"], labels=labels, colors="red", width=4, font_size=30)
+        pil_img = to_pil_image(box.detach())
+
+        buffered = io.BytesIO()
+        pil_img.save(buffered, format="JPEG")
+        pil_img = base64.b64encode(buffered.getvalue())
+        return str(pil_img)[2:-1]
 
 
 # Image detection
@@ -124,4 +149,5 @@ SUPPORTED_MODELS = {
     "google/owlvit-base-patch32": OwlvitBasePatch32(),
     "ChatGPTProcessPlanning": ChatGPTProcessPlanner(),
     "TransformersPipelineLLM": TransformersPipelineLLM(),
+    "RestNet50": Rresnet50(),
 }
