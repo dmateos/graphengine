@@ -2,6 +2,23 @@ import django.test
 import base64
 from .models import InferenceModel
 from .views import InferenceView
+from rest_framework.test import APIClient
+
+
+class TestInterenceAPI(django.test.TestCase):
+    def test_api_get(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="test",
+        )
+
+        api_client = APIClient()
+        response = api_client.get(f"/calculus/api/models/{model.pk}/")
+        self.assertEqual(response.status_code, 200)
+        response_parsed = response.json()
+        assert response_parsed["output"] == "test"
 
 
 class TestInterenceModelRun(django.test.TestCase):
