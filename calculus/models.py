@@ -4,9 +4,9 @@ from . import drivers
 SUPPORTED_OUTPUT_TYPES = [
     "text",
     "image",
+    "image_stream",
     # Not implemented
     "text_stream",
-    "image_stream",
     "data_frame",
     "graphengine_graph"
     "image_and_text",

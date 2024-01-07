@@ -27,6 +27,12 @@
                 <p>Output stream: 
                     <img src="data:image/jpg;base64,{{model.get_output}}"/>
                 </p>
+                <script>
+                   // Refresh page every 10 second
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 10000);
+                </script>
             {% else %}
                 <p>Output: <pre>not implemented</pre></p>
             {% endif %}

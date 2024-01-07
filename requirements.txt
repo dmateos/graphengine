@@ -19,3 +19,4 @@ openai
 jsonschema
 torchvision
 pillow
+opencv-python
