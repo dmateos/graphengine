@@ -6,6 +6,7 @@ import requests
 import time
 
 model_id = 9
+host = "http://dmacstudio.mateos.lan:8081"
 
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # width
@@ -25,9 +26,9 @@ while True:
 
     # Auth with django csrf for requests
     session = requests.Session()
-    session.get(f"http://dmacstudio.mateos.lan:8081/calculus/models/{model_id}")
+    session.get(f"http://{host}/calculus/models/{model_id}")
     csrf_token = session.cookies["csrftoken"]
 
     # send frame to server as post data using requests
-    response = session.post(f"http://dmacstudio.mateos.lan:8081/calculus/models/{model_id}", files=files, headers={"X-CSRFToken": csrf_token})
+    response = session.post(f"http://{host}/calculus/models/{model_id}", files=files, headers={"X-CSRFToken": csrf_token})
     print(response.text)
