@@ -26,9 +26,9 @@ while True:
 
     # Auth with django csrf for requests
     session = requests.Session()
-    session.get(f"http://{host}/calculus/models/{model_id}")
+    session.get(f"{host}/calculus/models/{model_id}")
     csrf_token = session.cookies["csrftoken"]
 
     # send frame to server as post data using requests
-    response = session.post(f"http://{host}/calculus/models/{model_id}", files=files, headers={"X-CSRFToken": csrf_token})
+    response = session.post(f"{host}/calculus/models/{model_id}", files=files, headers={"X-CSRFToken": csrf_token})
     print(response.text)
