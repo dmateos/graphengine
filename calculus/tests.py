@@ -1,5 +1,4 @@
 import django.test
-import base64
 from .models import InferenceModel
 from .views import InferenceView
 from rest_framework.test import APIClient
