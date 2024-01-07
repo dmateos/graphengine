@@ -11,14 +11,14 @@ class TestInterenceAPI(django.test.TestCase):
             name="test",
             model_name="test",
             metadata="test-meta",
-            output="test",
+            output="test-output",
         )
 
         api_client = APIClient()
         response = api_client.get(f"/calculus/api/models/{model.pk}/")
         self.assertEqual(response.status_code, 200)
         response_parsed = response.json()
-        assert response_parsed["output"] == "test"
+        assert response_parsed["output"] == "test-output"
 
 
 class TestInterenceModelRun(django.test.TestCase):
