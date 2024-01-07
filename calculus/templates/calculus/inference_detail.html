@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
 {% load crispy_forms_tags %} 
 
 {% block content %}
@@ -24,14 +28,32 @@
                     <img src="data:image/jpg;base64,{{model.get_output}}"/>
                 </p>
             {% elif model.output_type == "image_stream" %}
-                <p>Output stream: 
-                    <img src="data:image/jpg;base64,{{model.get_output}}"/>
-                </p>
+                <div id="output">
+                    <p>Output stream: 
+                        <img src="data:image/jpg;base64,{{model.get_output}}"/>
+                    </p>
+                </div>
                 <script>
-                   // Refresh page every 10 second
-                    setTimeout(function(){
-                        window.location.reload(1);
-                    }, 1000);
+                    //ajax request to calculus/api/models to get updated Output
+                    function updateOutput() {
+                        $.ajax({
+                            url: "/calculus/api/models/{{model.id}}",
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                if (data.output != null) {
+                                    $("#output").html("<img src='data:image/jpg;base64," + data.output + "'/>");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+
+                    // run on timer
+                    setInterval(updateOutput, 100);
                 </script>
             {% else %}
                 <p>Output: <pre>not implemented</pre></p>
