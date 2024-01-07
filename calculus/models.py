@@ -1,12 +1,15 @@
 from django.db import models
 from . import drivers
-import base64
 
 SUPPORTED_OUTPUT_TYPES = [
     "text",
-    "text_stream",
     "image",
-    "image_stream"
+    # Not implemented
+    "text_stream",
+    "image_stream",
+    "data_frame",
+    "graphengine_graph"
+    "image_and_text",
 ]
 
 SUPPORTED_INPUT_TYPES = [
@@ -49,6 +52,19 @@ class InferenceModel(models.Model):
 
         self.output = driver.run(input, self.metadata)
         self.save()
+
+    def get_output(self):
+        return self.output
+
+
+class InferenceCache(models.Model):
+    model = models.ForeignKey(InferenceModel, on_delete=models.CASCADE)
+    input = models.TextField(null=False, blank=False)
+    output = models.TextField(null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.model} {self.input}"
 
     def get_output(self):
         return self.output

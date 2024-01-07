@@ -75,7 +75,7 @@ class Rresnet50:
 
         prediction = model(batch)[0]
         labels = [weights.meta["categories"][i] for i in prediction["labels"]]
-        box = draw_bounding_boxes(img, boxes=prediction["boxes"], labels=labels, colors="red", width=4, font_size=30)
+        box = draw_bounding_boxes(img, boxes=prediction["boxes"], labels=labels, colors="red", width=4, font_size=60)
         pil_img = to_pil_image(box.detach())
 
         buffered = io.BytesIO()
