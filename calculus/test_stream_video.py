@@ -19,9 +19,8 @@ while True:
     else:
         time.sleep(1)
 
-    # convert frame to jpg 
+    # convert frame to jpg
     ret, frame = cv2.imencode(".jpg", frame)
-
     files = {"input": frame}
 
     # Auth with django csrf for requests
