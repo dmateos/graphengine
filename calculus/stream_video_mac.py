@@ -18,7 +18,8 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
     else:
-        time.sleep(1)
+        #time.sleep(1)
+        pass
 
     # convert frame to jpg
     ret, frame = cv2.imencode(".jpg", frame)
