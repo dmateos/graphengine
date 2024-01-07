@@ -10,6 +10,7 @@ SUPPORTED_OUTPUT_TYPES = [
     "data_frame",
     "graphengine_graph"
     "image_and_text",
+    "l4mbda"
 ]
 
 SUPPORTED_INPUT_TYPES = [

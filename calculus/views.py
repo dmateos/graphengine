@@ -3,7 +3,9 @@ from django.views import View
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
+from rest_framework import viewsets
 from . import models
+from . import serializers
 from . import forms
 
 
@@ -44,3 +46,8 @@ class InferenceView(View):
             return HttpResponse(status=500)
 
         return HttpResponseRedirect(reverse("model_detail", args=[pk]))
+
+
+class InferenceViewSet(viewsets.ModelViewSet):
+    queryset = models.InferenceModel.objects.all()
+    serializer_class = serializers.InferenceModelSerializer
