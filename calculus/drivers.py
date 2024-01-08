@@ -67,7 +67,7 @@ class Rresnet50:
         img = pil_to_tensor(img)
 
         weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
-        model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=0.9)
+        model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=0.8)
         model.eval()
 
         preprocess = weights.transforms()

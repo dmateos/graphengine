@@ -2,7 +2,6 @@ from rest_framework import serializers
 from . import models
 
 
-# Not used yet
 class InferenceModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.InferenceModel
