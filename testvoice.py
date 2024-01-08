@@ -37,5 +37,5 @@ while True:
 
     label = labels[prediction["scores"].argmax()]
     if label != last_label:
-        os.system(f"say {labels[prediction['scores'].argmax()]}")
-    last_label = label
+        os.system(f"say {label}")
+        last_label = label
