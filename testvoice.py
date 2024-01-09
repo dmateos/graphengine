@@ -43,6 +43,7 @@ while True:
     if len(labels) == 0:
         continue
 
+    labels = set(labels)
     print(labels)
 
     # convert label to string and add and before the last one
