@@ -8,10 +8,10 @@ from torchvision.transforms.functional import pil_to_tensor
 last_label = None
 
 possible_strings = [
-    "say Thats a {thing} you dumb cunt",
-    "say Obviously thats a {thing}, you fucking bastard",
-    "say I think thats a {thing}, you dickhead",
-    "say You have a {thing} there, you stupid shithead"
+    "Thats a {thing} you dumb cunt",
+    "Obviously thats a {thing}, you fucking bastard",
+    "I think thats a {thing}, you dickhead",
+    "You have a {thing} there, you stupid shithead"
 ]
 
 cap = cv2.VideoCapture(0)
@@ -47,5 +47,5 @@ while True:
 
     if label != last_label:
         string = random.choice(possible_strings)
-        os.system(string.format(thing=label))
+        os.system("say " + string.format(thing=label))
         last_label = label
