@@ -39,14 +39,10 @@ while True:
     prediction = model(batch)[0]
     labels = [weights.meta["categories"][i] for i in prediction["labels"]]
 
-    # check if none
     if len(labels) == 0:
         continue
-
     labels = set(labels)
     print(labels)
-
-    # convert label to string and add and before the last one
     label = " and ".join(labels)
     
     if label != last_label:
