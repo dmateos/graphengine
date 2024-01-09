@@ -1,5 +1,6 @@
 import cv2
 import os
+import random
 from PIL import Image
 from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.transforms.functional import pil_to_tensor
@@ -10,6 +11,13 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # height
 cap.set(cv2.CAP_PROP_FPS, 30)  # frame rate
 
 last_label = None
+
+possible_strings = [
+    "say Thats a {thing} you dumb cunt",
+    "say Obviously thats a {thing}, you fucking bastard",
+    "say I think thats a {thing}, you dickhead",
+    "say You have a {thing} there, you stupid shithead"
+]
 
 while True:
     ret, frame = cap.read()
@@ -35,7 +43,12 @@ while True:
     if len(labels) == 0:
         continue
 
-    label = labels[prediction["scores"].argmax()]
+    print(labels)
+
+    # convert label to string and add and before the last one
+    label = " and ".join(labels)
+    
     if label != last_label:
-        os.system(f"say {label}")
+        string = random.choice(possible_strings)
+        os.system(string.format(thing=label))
         last_label = label
