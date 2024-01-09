@@ -44,7 +44,7 @@ while True:
     labels = set(labels)
     print(labels)
     label = " and ".join(labels)
-    
+
     if label != last_label:
         string = random.choice(possible_strings)
         os.system(string.format(thing=label))
