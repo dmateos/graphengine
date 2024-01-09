@@ -5,11 +5,6 @@ from PIL import Image
 from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.transforms.functional import pil_to_tensor
 
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # width
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # height
-cap.set(cv2.CAP_PROP_FPS, 30)  # frame rate
-
 last_label = None
 
 possible_strings = [
@@ -18,6 +13,11 @@ possible_strings = [
     "say I think thats a {thing}, you dickhead",
     "say You have a {thing} there, you stupid shithead"
 ]
+
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # width
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # height
+cap.set(cv2.CAP_PROP_FPS, 30)  # frame rate
 
 while True:
     ret, frame = cap.read()
