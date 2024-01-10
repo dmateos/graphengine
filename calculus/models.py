@@ -42,6 +42,8 @@ class InferenceModel(models.Model):
         choices=[(k, k) for k in SUPPORTED_INPUT_TYPES]
     )
 
+    background = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.name} {self.model_name}"
 
