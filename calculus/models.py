@@ -48,6 +48,17 @@ class InferenceModel(models.Model):
         return f"{self.name} {self.model_name}"
 
     def run_model(self, input=None):
+        if self.background:
+            from l4mbda.tasks import run_model
+            # convert input from InMemoryUploadedFile to bytes
+            if input and self.input_type == "image":
+                input = input.read()
+
+            run_model.delay(input)
+        else:
+            self.run(input)
+
+    def run(self, input=None):
         try:
             driver = drivers.SUPPORTED_MODELS[self.model_name]
         except KeyError:

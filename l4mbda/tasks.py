@@ -33,3 +33,11 @@ def run_job(self, job_id):
 
     job_model = Job.objects.get(pk=job_id)
     job_model.run_main()
+
+
+@app.task(bind=True)
+def run_model(self, model_id):
+    from calculus.models import InferenceModel
+
+    model = InferenceModel.objects.get(pk=model_id)
+    model.run()
