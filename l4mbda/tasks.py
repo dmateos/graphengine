@@ -42,8 +42,5 @@ def run_model(self, data):
     model_id = data["model_id"]
     image = data["input"]
 
-    print("init model")
     model = InferenceModel.objects.get(pk=model_id)
-    print("running")
     model.run(image)
-    print("done")

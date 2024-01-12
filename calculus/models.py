@@ -22,14 +22,15 @@ SUPPORTED_INPUT_TYPES = [
 
 class InferenceModel(models.Model):
     name = models.CharField(max_length=32, null=False)
+    metadata = models.TextField(null=True, blank=True)
+    output = models.TextField(null=True, blank=True)
+    background = models.BooleanField(default=False)
+
     model_name = models.CharField(
         max_length=32,
         null=False,
         choices=[(k, k) for k in drivers.SUPPORTED_MODELS.keys()]
     )
-
-    metadata = models.TextField(null=True, blank=True)
-    output = models.TextField(null=True, blank=True)
 
     output_type = models.CharField(
         max_length=32,
@@ -42,8 +43,6 @@ class InferenceModel(models.Model):
         default="text",
         choices=[(k, k) for k in SUPPORTED_INPUT_TYPES]
     )
-
-    background = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} {self.model_name}"
