@@ -63,6 +63,9 @@ class VitBasePatch16_224:
 # Image output
 class Rresnet50:
     def run(self, input, metadata):
+        if type(input) is str:
+            input = io.BytesIO(base64.b64decode(input))
+
         img = Image.open(input)
         img = pil_to_tensor(img)
 

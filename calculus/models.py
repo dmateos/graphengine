@@ -1,5 +1,6 @@
 from django.db import models
 from . import drivers
+import base64
 
 SUPPORTED_OUTPUT_TYPES = [
     "text",
@@ -50,11 +51,19 @@ class InferenceModel(models.Model):
     def run_model(self, input=None):
         if self.background:
             from l4mbda.tasks import run_model
-            # convert input from InMemoryUploadedFile to bytes
-            if input and self.input_type == "image":
-                input = input.read()
-
-            run_model.delay(input)
+            if self.input_type != "image":
+                data = {
+                    "model_id": self.id,
+                    "input": input
+                }
+            else:
+                # For some reason were limited with what we can serialize and
+                # send to a celery job.
+                data = {
+                    "model_id": self.id,
+                    "input": str(base64.b64encode(input.file.read()))
+                }
+            run_model.delay(data)
         else:
             self.run(input)
 

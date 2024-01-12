@@ -43,6 +43,18 @@ class TestInterenceModelRun(django.test.TestCase):
         output = model.get_output()
         self.assertEqual(output, "test-output")
 
+    def test_model_background_run(self):
+        model = InferenceModel.objects.create(
+            name="test",
+            model_name="test",
+            metadata="test-meta",
+            output="",
+            background=True,
+        )
+
+        model.run_model("test-input")
+        self.assertEqual(model.output, "")
+
 
 class TestInferenceView(django.test.TestCase):
     def test_get(self):

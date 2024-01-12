@@ -36,8 +36,14 @@ def run_job(self, job_id):
 
 
 @app.task(bind=True)
-def run_model(self, model_id):
+def run_model(self, data):
     from calculus.models import InferenceModel
 
+    model_id = data["model_id"]
+    image = data["input"]
+
+    print("init model")
     model = InferenceModel.objects.get(pk=model_id)
-    model.run()
+    print("running")
+    model.run(image)
+    print("done")
