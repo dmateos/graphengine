@@ -10,11 +10,7 @@ ETL_STATUS = (
 )
 
 ETL_INPUT_TYPE = (
-
-)
-
-ETL_INPUT_FORMAT = (
-
+    ("FILE_CSV", "FILE_CSV"),
 )
 
 
@@ -30,10 +26,23 @@ class ETLJob(models.Model):
     def __str__(self):
         return self.name
 
+    def run_etl(self):
+        from l4mbda.tasks import run_etl
+        run_etl.delay(self.id)
+
+    def run(self):
+        try:
+            self.status = "SUCCESS"
+        except Exception as e:
+            self.status = "ERROR"
+            self.error_message = str(e)
+        finally:
+            self.save()
+
 
 class ETLInput(models.Model):
     connection_string = models.TextField()
-    connection_type = models.CharField(max_length=100)
+    connection_type = models.CharField(max_length=100, choices=ETL_INPUT_TYPE)
 
     def __str__(self):
         return self.name

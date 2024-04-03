@@ -44,3 +44,11 @@ def run_model(self, data):
 
     model = InferenceModel.objects.get(pk=model_id)
     model.run(image)
+
+
+@app.task(bind=True)
+def run_etl(self, etlid):
+    from transformer.models import ETLJob
+
+    etl_job = ETLJob.objects.get(pk=etlid)
+    etl_job.run()

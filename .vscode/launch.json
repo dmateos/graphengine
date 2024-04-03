@@ -3,6 +3,15 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Compound",
+            "configurations": [
+                "Python: Django",
+                "Python: Worker"
+            ]
+        }
+    ],
     "configurations": [
         {
             "name": "Python: Django",
@@ -11,7 +20,23 @@
             "program": "${workspaceFolder}/manage.py",
             "args": [
                 "runserver",
-                "--noreload"
+                "--noreload",
+                "0.0.0.0:8082"
+            ],
+            "django": true,
+            "envFile": "${workspaceFolder}/env_setup.sh"
+        },
+        {
+            "name": "Python: Worker",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "~/.virtualenvs/graphengine/bin/celery",
+            "args": [
+                "-A",
+                "l4mbda.tasks",
+                "worker",
+                "-c",
+                "2",
             ],
             "django": true,
             "envFile": "${workspaceFolder}/env_setup.sh"
