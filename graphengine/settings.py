@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "graph",
     "calculus",
     "l4mbda",
+    "transformer",
 ]
 
 MIDDLEWARE = [

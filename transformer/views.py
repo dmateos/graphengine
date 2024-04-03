@@ -1,5 +1,10 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from .models import ETLJob
 
 
 class IndexView(TemplateView):
-    template_name = "index.html"
+    template_name = "transformer/index.html"
+
+
+class JobView(ListView):
+    model = ETLJob
