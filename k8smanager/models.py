@@ -1,6 +1,6 @@
 from django.db import models
-import kubernetes
 from urllib3.exceptions import MaxRetryError
+from . import k8s
 
 
 class Cluster(models.Model):
@@ -9,11 +9,8 @@ class Cluster(models.Model):
 
     def get_namespaces(self):
         try:
-            kubernetes.config.load_kube_config()
-            client = kubernetes.client.CoreV1Api()
-            namespaces = client.list_namespace()
-            namespace_list = [namespace.metadata.name for namespace in namespaces.items]
-            return namespace_list
+            client = k8s.get_client(self.cluster_endpoint)
+            return k8s.get_namespaces(client)
         except MaxRetryError as e:
             return f"Error: {e}"
 
