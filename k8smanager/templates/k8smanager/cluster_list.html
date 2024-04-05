@@ -11,9 +11,6 @@
                                 <a href={% url 'cluster_detail' cluster.id %}>{{ cluster.name }}</a>
                             </h1>
                             <h2> {{ cluster.cluster_endpoint }} </h2>
-                            {% for namespace in cluster.get_namespaces %}
-                                <div> {{ namespace }} </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
