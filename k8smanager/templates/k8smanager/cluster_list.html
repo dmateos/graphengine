@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for cluster in object_list %}
+                <div class="col">
+                    <div class="cluster_{{cluster.id}} card bg-dark">
+                        <div class="card-body">
+                            <h1> {{ cluster.name }} </h1>
+                            <h2> {{ cluster.cluster_endpoint }} </h2>
+                            {% for namespace in cluster.get_namespaces %}
+                                <div> {{ namespace }} </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

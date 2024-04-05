@@ -7,18 +7,15 @@ class Cluster(models.Model):
     name = models.CharField(max_length=255)
     cluster_endpoint = models.URLField()
 
-    def poll_cluster(self):
+    def get_namespaces(self):
         try:
-            config = kubernetes.client.Configuration()
-            config.host = self.cluster_endpoint
-
-            client = kubernetes.client.CoreV1Api(
-                kubernetes.client.ApiClient(config)
-            )
-
-            return client.list_pod_for_all_namespaces()
-        except MaxRetryError:
-            return "Error connecting to cluster."
+            kubernetes.config.load_kube_config()
+            client = kubernetes.client.CoreV1Api()
+            namespaces = client.list_namespace()
+            namespace_list = [namespace.metadata.name for namespace in namespaces.items]
+            return namespace_list
+        except MaxRetryError as e:
+            return f"Error: {e}"
 
     def __str__(self):
         return self.name
