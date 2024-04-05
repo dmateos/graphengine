@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "calculus",
     "l4mbda",
     "transformer",
+    "k8smanager",
 ]
 
 MIDDLEWARE = [
