@@ -1,5 +1,6 @@
 from django.db import models
 import kubernetes
+from urllib3.exceptions import MaxRetryError
 
 
 class Cluster(models.Model):
@@ -7,11 +8,17 @@ class Cluster(models.Model):
     cluster_endpoint = models.URLField()
 
     def poll_cluster(self):
-        config = kubernetes.client.Configuration()
-        config.host = self.cluster_endpoint
+        try:
+            config = kubernetes.client.Configuration()
+            config.host = self.cluster_endpoint
 
-        client = kubernetes.client.CoreV1Api(
-            kubernetes.client.ApiClient(config)
-        )
+            client = kubernetes.client.CoreV1Api(
+                kubernetes.client.ApiClient(config)
+            )
 
-        return client.list_pod_for_all_namespaces()
+            return client.list_pod_for_all_namespaces()
+        except MaxRetryError:
+            return "Error connecting to cluster."
+
+    def __str__(self):
+        return self.name
