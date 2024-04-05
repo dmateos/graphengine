@@ -20,3 +20,4 @@ jsonschema
 torchvision
 pillow
 opencv-python
+kubernetes
