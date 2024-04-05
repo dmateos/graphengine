@@ -4,9 +4,14 @@
     <div class="container-fluid">
         <h1> {{ cluster.name }} </h1>
         <div class="row">
-            {% for namespace in cluster.get_namespaces %}
+            {% for namespace, pod_list in pods.items %}
                 <div class="col-md-12">
                     <div> {{ namespace }} </div>
+                    <div class="row">
+                    {% for pod in pod_list %}
+                        <div class="col-md-12"> {{ pod }} </div>
+                    {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

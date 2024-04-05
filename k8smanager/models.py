@@ -16,3 +16,10 @@ class Cluster(models.Model):
             return k8s.get_namespaces(client)
         except MaxRetryError as e:
             return f"Error: {e}"
+
+    def get_pods_for_namespace(self, namespace):
+        try:
+            client = k8s.get_client(self.cluster_endpoint)
+            return k8s.get_pods_for_namespace(client, namespace)
+        except MaxRetryError as e:
+            return f"Error: {e}"
