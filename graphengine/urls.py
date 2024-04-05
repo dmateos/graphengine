@@ -21,5 +21,6 @@ urlpatterns = [
     path('graphs/', include("graph.urls")),
     path('l4mbda/', include("l4mbda.urls")),
     path('calculus/', include("calculus.urls")),
-    path('transformer/', include("transformer.urls"))
+    path('transformer/', include("transformer.urls")),
+    path('k8smanager/', include("k8smanager.urls")),
 ]
