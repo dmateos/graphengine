@@ -19,7 +19,8 @@ class ClusterDetailView(View):
         pods = {}
 
         for namespace in cluster.get_namespaces():
-            pods[namespace] = cluster.get_pods_for_namespace(namespace)
+            if namespace != "kube-system":
+                pods[namespace] = cluster.get_pods_for_namespace(namespace)
 
         return render(
             request,

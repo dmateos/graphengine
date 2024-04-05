@@ -3,16 +3,18 @@
 {% block content %}
     <div class="container-fluid">
         <h1> {{ cluster.name }} </h1>
-        <div class="row">
+        <table class="table">
+            <tr>
+                <th>Namespace</th>
+                <th>Pod</th>
+            </tr>
             {% for namespace, pod_list in pods.items %}
-                <div class="col-md-12">
-                    <div> {{ namespace }} </div>
-                    <div class="row">
-                    {% for pod in pod_list %}
-                        <div class="col-md-12"> {{ pod }} </div>
-                    {% endfor %}
-                    </div>
-                </div>
+                {% for pod in pod_list %}
+                    <tr>
+                        <td> {{ namespace }} </td>
+                        <td> {{ pod }} </td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
-        </div>
+        </table>
 {% endblock %}
