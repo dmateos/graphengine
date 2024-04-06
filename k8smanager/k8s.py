@@ -37,3 +37,17 @@ def get_nodes(client):
     nodes = client.list_node()
     node_list = [node.metadata.name for node in nodes.items]
     return node_list
+
+
+def get_ingresses(client):
+    api_instance = kubernetes.client.NetworkingV1Api()
+    ingresses = api_instance.list_ingress_for_all_namespaces()
+
+    ingress_list = []
+    for ingress in ingresses.items:
+        ingress_list.append({
+            "name": ingress.metadata.name,
+            "namespace": ingress.metadata.namespace,
+            "rules": ingress.spec.rules[0],
+        })
+    return ingress_list

@@ -18,6 +18,7 @@ class ClusterDetailView(View):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
         nodes = cluster.get_nodes()
         pods = {}
+        ingress = cluster.get_ingresses()
 
         for namespace in cluster.get_namespaces():
             if namespace != "kube-system":
@@ -26,5 +27,10 @@ class ClusterDetailView(View):
         return render(
             request,
             "k8smanager/cluster_detail.html",
-            {"cluster": cluster, "pods": pods, "nodes": nodes}
+            {
+                "cluster": cluster,
+                "pods": pods,
+                "nodes": nodes,
+                "ingresses": ingress,
+            }
         )

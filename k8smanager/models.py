@@ -38,6 +38,13 @@ class Cluster(models.Model):
         except MaxRetryError as e:
             return f"Error: {e}"
 
+    def get_ingresses(self):
+        try:
+            client = k8s.get_client(self.cluster_endpoint)
+            return k8s.get_ingresses(client)
+        except MaxRetryError as e:
+            return f"Error: {e}"
+
 
 class Node(models.Model):
     name = models.CharField(max_length=255)

@@ -15,6 +15,28 @@
             </div>
         </div>
 
+        <h2> Ingress </h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <th> Pod </th>
+                            <th> Namespace </th>
+                            <th> Hostname </th>
+                        </tr>
+                        {% for ingress in ingresses %}
+                            <tr>
+                                <td> {{ ingress.name }} </td>
+                                <td> {{ ingress.namespace }} </td>
+                                <td> {{ ingress.rules.host }} </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <h2> Pods </h2>
         <div class="accordion" id="podAccordian">
             {% for namespace, pod_list in pods.items %}
@@ -39,8 +61,8 @@
                                 <tr>
                                     <td> {{ pod.name }} </td>
                                     <td> {{ pod.status }} </td>
-                                    <td> {{ pod.ip }} </td>
                                     <td> {{ pod.start_time }} </td>
+                                    <td> {{ pod.ip }} </td>
                                     <td> {{ pod.node }} </td>
                                 </tr>
                             {% endfor %}
