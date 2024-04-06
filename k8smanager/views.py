@@ -16,6 +16,7 @@ class ClusterListView(ListView):
 class ClusterDetailView(View):
     def get(self, request, *args, **kwargs):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
+        nodes = cluster.get_nodes()
         pods = {}
 
         for namespace in cluster.get_namespaces():
@@ -25,5 +26,5 @@ class ClusterDetailView(View):
         return render(
             request,
             "k8smanager/cluster_detail.html",
-            {"cluster": cluster, "pods": pods}
+            {"cluster": cluster, "pods": pods, "nodes": nodes}
         )

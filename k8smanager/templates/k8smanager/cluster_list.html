@@ -5,7 +5,7 @@
         <div class="row">
             {% for cluster in object_list %}
                 <div class="col">
-                    <div class="cluster_{{cluster.id}} card bg-dark">
+                    <div class="cluster_{{cluster.id}} card">
                         <div class="card-body">
                             <h1>
                                 <a href={% url 'cluster_detail' cluster.id %}>{{ cluster.name }}</a>

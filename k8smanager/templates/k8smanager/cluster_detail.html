@@ -3,19 +3,45 @@
 {% block content %}
     <div class="container-fluid">
         <h1> {{ cluster.name }} </h1>
-        <table class="table">
-            <tr>
-                <th>Namespace</th>
-                <th>Pod</th>
-            </tr>
+
+        <h3> Nodes </h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {% for node in nodes %}
+                        <div class="col-md-4"> {{ node }} </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <h2> Pods </h2>
+        <div class="accordion" id="podAccordian">
             {% for namespace, pod_list in pods.items %}
-                {% for pod in pod_list %}
-                    <tr>
-                        <td> {{ namespace }} </td>
-                        <td> {{ pod }} </td>
-                    </tr>
-                {% endfor %}
+                <div class="accordian-item">
+                    <h2 class="accordion-header" id="heading{{ namespace }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ namespace }}" aria-expanded="false" aria-controls="collapse{{ namespace }}">
+                            {{ namespace }}
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse{{ namespace }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ namespace }}" data-bs-parent="#podAccordian">
+                    <div class="accordion-body">
+                        <table class="table">
+                            <tr>
+                                <th> Pod Name </th>
+                                <th> Status </th>
+                            <tr>
+                            {% for pod in pod_list %}
+                                <tr>
+                                    <td> {{ pod }} </td>
+                                    <td> OK </td>
+                                <tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
 {% endblock %}
