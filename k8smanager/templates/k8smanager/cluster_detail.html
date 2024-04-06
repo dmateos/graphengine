@@ -35,8 +35,8 @@
                             <tr>
                                 <td> {{ ingress.name }} </td>
                                 <td> {{ ingress.namespace }} </td>
-                                <td> {{ ingress.rules.host }} </td>
-                                <td> {{ ingress.ip }} </td>
+                                <td> {{ ingress.host }} </td>
+                                <td> {{ ingress.ip_address }} </td>
                             </tr>
                         {% endfor %}
                     </table>
