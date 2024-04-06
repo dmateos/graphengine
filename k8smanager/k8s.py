@@ -6,6 +6,13 @@ def get_client(endpoint: str):
     return kubernetes.client.CoreV1Api()
 
 
+# Does not work
+def get_cluster_version(client):
+    api_instance = kubernetes.client.VersionApi(client)
+    response = api_instance.get_code()
+    return response
+
+
 def get_namespaces(client):
     namespaces = client.list_namespace()
     namespace_list = [namespace.metadata.name for namespace in namespaces.items]
