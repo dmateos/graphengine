@@ -2,7 +2,12 @@
 
 {% block content %}
     <div class="container-fluid">
-        <h1> {{ cluster.name }} </h1>
+        <div class="row">
+            <div class="col-md-6"> <h1> {{ cluster.name }} </h1> </div>
+            <div class="col-md-6">
+                <a href="{% url 'cluster_sync' cluster.id %}" class="btn btn-primary"> Sync </a>
+            </div>
+        </div>
 
         <h2> Nodes </h2>
         <div class="card">
@@ -39,7 +44,7 @@
             </div>
         </div>
 
-        <h2> Pods </h2>
+        <h2> Namespaces </h2>
         <div class="accordion" id="podAccordian{{ namesoace }}">
             {% for namespace, pod_list in pods.items %}
                 <div class="accordian-item">
