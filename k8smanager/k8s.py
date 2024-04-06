@@ -21,7 +21,15 @@ def get_namespaces(client):
 
 def get_pods_for_namespace(client, namespace):
     pods = client.list_namespaced_pod(namespace)
-    pod_list = [pod.metadata.name for pod in pods.items]
+    pod_list = []
+    for pod in pods.items:
+        pod_list.append({
+            "name": pod.metadata.name,
+            "ip": pod.status.pod_ip,
+            "start_time": pod.status.start_time,
+            "status": pod.status.phase,
+            "node": pod.spec.node_name,
+        })
     return pod_list
 
 

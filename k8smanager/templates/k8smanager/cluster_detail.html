@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <h1> {{ cluster.name }} </h1>
 
-        <h3> Nodes </h3>
+        <h2> Nodes </h2>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -31,12 +31,18 @@
                             <tr>
                                 <th> Pod Name </th>
                                 <th> Status </th>
-                            <tr>
+                                <th> IP </th>
+                                <th> Start </th>
+                                <th> Node </th>
+                            </tr>
                             {% for pod in pod_list %}
                                 <tr>
-                                    <td> {{ pod }} </td>
-                                    <td> OK </td>
-                                <tr>
+                                    <td> {{ pod.name }} </td>
+                                    <td> {{ pod.status }} </td>
+                                    <td> {{ pod.ip }} </td>
+                                    <td> {{ pod.start_time }} </td>
+                                    <td> {{ pod.node }} </td>
+                                </tr>
                             {% endfor %}
                         </table>
                     </div>
