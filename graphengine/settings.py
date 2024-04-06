@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "rest_framework",
     "rest_framework.authtoken",
-    "bootstrap5",
+    "django_bootstrap5",
     "graph",
     "calculus",
     "l4mbda",
