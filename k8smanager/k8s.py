@@ -19,6 +19,12 @@ def get_namespaces(client):
     return ns_list
 
 
+def get_nodes(client):
+    nodes = client.list_node()
+    node_list = [node.metadata.name for node in nodes.items]
+    return node_list
+
+
 def get_pods_for_namespace(client, namespace):
     pods = client.list_namespaced_pod(namespace)
     pod_list = []
@@ -33,12 +39,6 @@ def get_pods_for_namespace(client, namespace):
     return pod_list
 
 
-def get_nodes(client):
-    nodes = client.list_node()
-    node_list = [node.metadata.name for node in nodes.items]
-    return node_list
-
-
 def get_ingresses(client):
     api_instance = kubernetes.client.NetworkingV1Api()
     ingresses = api_instance.list_ingress_for_all_namespaces()
@@ -49,5 +49,6 @@ def get_ingresses(client):
             "name": ingress.metadata.name,
             "namespace": ingress.metadata.namespace,
             "rules": ingress.spec.rules[0],
+            "ip": ingress.status.load_balancer.ingress[0].ip,
         })
     return ingress_list

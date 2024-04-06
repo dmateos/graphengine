@@ -24,12 +24,14 @@
                             <th> Pod </th>
                             <th> Namespace </th>
                             <th> Hostname </th>
+                            <th> IP </th>
                         </tr>
                         {% for ingress in ingresses %}
                             <tr>
                                 <td> {{ ingress.name }} </td>
                                 <td> {{ ingress.namespace }} </td>
                                 <td> {{ ingress.rules.host }} </td>
+                                <td> {{ ingress.ip }} </td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -53,8 +55,8 @@
                             <tr>
                                 <th> Pod Name </th>
                                 <th> Status </th>
-                                <th> IP </th>
                                 <th> Start </th>
+                                <th> IP </th>
                                 <th> Node </th>
                             </tr>
                             {% for pod in pod_list %}
