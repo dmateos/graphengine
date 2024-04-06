@@ -40,16 +40,16 @@
         </div>
 
         <h2> Pods </h2>
-        <div class="accordion" id="podAccordian">
+        <div class="accordion" id="podAccordian{{ namesoace }}">
             {% for namespace, pod_list in pods.items %}
                 <div class="accordian-item">
-                    <h2 class="accordion-header" id="heading{{ namespace }}">
+                    <div class="accordion-header" id="heading{{ namespace }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ namespace }}" aria-expanded="false" aria-controls="collapse{{ namespace }}">
-                            {{ namespace }}
+                            <h3> {{ namespace }} </h3>
                         </button>
-                    </h2>
+                    </div>
                 </div>
-                <div id="collapse{{ namespace }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ namespace }}" data-bs-parent="#podAccordian">
+                <div id="collapse{{ namespace }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ namespace }}" data-bs-parent="#podAccordian{{ namespace }}">
                     <div class="accordion-body">
                         <table class="table">
                             <tr>
