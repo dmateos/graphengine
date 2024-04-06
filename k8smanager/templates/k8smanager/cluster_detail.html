@@ -56,16 +56,16 @@
                                 <th> Pod Name </th>
                                 <th> Status </th>
                                 <th> Start </th>
-                                <th> IP </th>
                                 <th> Node </th>
+                                <th> IP </th>
                             </tr>
                             {% for pod in pod_list %}
                                 <tr>
                                     <td> {{ pod.name }} </td>
                                     <td> {{ pod.status }} </td>
                                     <td> {{ pod.start_time }} </td>
-                                    <td> {{ pod.ip }} </td>
                                     <td> {{ pod.node }} </td>
+                                    <td> {{ pod.ip }} </td>
                                 </tr>
                             {% endfor %}
                         </table>
