@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+
 # Create your tests here.
 class TestClusterModel(TestCase):
     def test_get_namespaces(self):

@@ -14,9 +14,9 @@ def get_cluster_version(client):
 
 
 def get_namespaces(client):
-    namespaces = client.list_namespace()
-    namespace_list = [namespace.metadata.name for namespace in namespaces.items]
-    return namespace_list
+    ns = client.list_namespace()
+    ns_list = [n.metadata.name for n in ns.items]
+    return ns_list
 
 
 def get_pods_for_namespace(client, namespace):
