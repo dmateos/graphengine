@@ -19,8 +19,13 @@ class ClusterDetailView(View):
     def get(self, request, *args, **kwargs):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
         nodes = Node.objects.filter(cluster=cluster)
-        pods = Pod.objects.filter(cluster=cluster).order_by("namespace", "name") 
         ingress = cluster.get_ingresses()
+
+        pods = {}
+        for pod in Pod.objects.filter(cluster=cluster):
+            if pod.namespace not in pods:
+                pods[pod.namespace] = []
+            pods[pod.namespace].append(pod)
 
         return render(
             request,
