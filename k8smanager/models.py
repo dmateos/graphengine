@@ -122,7 +122,7 @@ class Ingress(models.Model):
     namespace = models.CharField(max_length=255)
     rules = models.TextField()
     host = models.CharField(max_length=255)
-    ip_address = models.GenericIPAddressField()
+    ip_address = models.GenericIPAddressField(null=True)
 
     def __str__(self):
         return self.name
@@ -136,7 +136,7 @@ class Pod(models.Model):
     namespace = models.CharField(max_length=255)
     status = models.CharField(max_length=255)
     start_time = models.DateTimeField()
-    ip_address = models.GenericIPAddressField()
+    ip_address = models.GenericIPAddressField(null=True)
 
     def __str__(self):
         return self.name
