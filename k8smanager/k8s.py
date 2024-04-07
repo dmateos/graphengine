@@ -44,7 +44,8 @@ def get_services_for_namespace(client, namespace):
 
 
 def get_deployments_for_namespace(client, namespace):
-    deployments = client.list_namespaced_deployment(namespace)
+    deployments_api = kubernetes.client.AppsV1Api()
+    deployments = deployments_api.list_namespaced_deployment(namespace)
     deployment_list = []
 
     for deployment in deployments.items:
