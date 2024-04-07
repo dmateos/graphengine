@@ -1,5 +1,4 @@
 from django.db import models
-from urllib3.exceptions import MaxRetryError
 from . import k8s
 
 
@@ -110,6 +109,33 @@ class Pod(models.Model):
     status = models.CharField(max_length=255)
     start_time = models.DateTimeField()
     ip_address = models.GenericIPAddressField()
+
+    def __str__(self):
+        return self.name
+
+
+class Deployment(models.Model):
+    name = models.CharField(max_length=255)
+    cluster = models.ForeignKey(Cluster, on_delete=models.CASCADE)
+    namespace = models.CharField(max_length=255)
+    replicas = models.IntegerField()
+    available_replicas = models.IntegerField()
+    unavailable_replicas = models.IntegerField()
+    strategy = models.TextField()
+    template = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Service(models.Model):
+    name = models.CharField(max_length=255)
+    cluster = models.ForeignKey(Cluster, on_delete=models.CASCADE)
+    namespace = models.CharField(max_length=255)
+    cluster_ip = models.GenericIPAddressField()
+    external_ip = models.GenericIPAddressField()
+    type = models.CharField(max_length=255)
+    ports = models.TextField()
 
     def __str__(self):
         return self.name

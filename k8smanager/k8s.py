@@ -25,6 +25,43 @@ def get_nodes(client):
     return node_list
 
 
+def get_services_for_namespace(client, namespace):
+    services = client.list_namespaced_service(namespace)
+    service_list = []
+
+    for service in services.items:
+        service_list.append(
+            {
+                "name": service.metadata.name,
+                "namespace": service.metadata.namespace,
+                "cluster_ip": service.spec.cluster_ip,
+                "external_ip": service.spec.external_i_ps,
+                "type": service.spec.type,
+                "ports": service.spec.ports,
+            }
+        )
+    return service_list
+
+
+def get_deployments_for_namespace(client, namespace):
+    deployments = client.list_namespaced_deployment(namespace)
+    deployment_list = []
+
+    for deployment in deployments.items:
+        deployment_list.append(
+            {
+                "name": deployment.metadata.name,
+                "namespace": deployment.metadata.namespace,
+                "replicas": deployment.spec.replicas,
+                "available_replicas": deployment.status.available_replicas,
+                "unavailable_replicas": deployment.status.unavailable_replicas,
+                "strategy": deployment.spec.strategy,
+                "template": deployment.spec.template,
+            }
+        )
+    return deployment_list
+
+
 def get_pods_for_namespace(client, namespace):
     pods = client.list_namespaced_pod(namespace)
     pod_list = []

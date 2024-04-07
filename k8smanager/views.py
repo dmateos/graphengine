@@ -43,14 +43,15 @@ class ClusterSyncView(View):
     def get(self, request, *args, **kwargs):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
         cluster.sync()
-        return HttpResponseRedirect(reverse("cluster_detail", args=[cluster.pk]))
+        return HttpResponseRedirect(
+            reverse("cluster_detail", args=[cluster.pk])
+        )
 
 
 class PodDetailView(View):
     def get(self, request, *args, **kwargs):
         cluster = Cluster.objects.get(pk=kwargs["cluster_pk"])
-        # pod = cluster.pod_set.get(pk=kwargs["pk"])
-        pod = None
+        pod = Pod.objects.get(pk=kwargs["pk"])
 
         return render(
             request,

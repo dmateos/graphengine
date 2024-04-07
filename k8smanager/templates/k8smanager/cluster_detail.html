@@ -56,6 +56,7 @@
                 </div>
                 <div id="collapse{{ namespace }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ namespace }}" data-bs-parent="#podAccordian{{ namespace }}">
                     <div class="accordion-body">
+                        <h4> Pods </h4>
                         <table class="table">
                             <tr>
                                 <th> Pod Name </th>
@@ -66,7 +67,11 @@
                             </tr>
                             {% for pod in pod_list %}
                                 <tr>
-                                    <td> {{ pod.name }} </td>
+                                    <td> 
+                                        <a href="{% url 'pod_detail' cluster.id pod.id %}">
+                                            {{ pod.name }}
+                                        </a>
+                                    </td>
                                     <td> {{ pod.status }} </td>
                                     <td> {{ pod.start_time }} </td>
                                     <td> {{ pod.node }} </td>
