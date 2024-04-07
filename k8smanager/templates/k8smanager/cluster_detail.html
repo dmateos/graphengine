@@ -56,6 +56,45 @@
                 </div>
                 <div id="collapse{{ namespace }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ namespace }}" data-bs-parent="#podAccordian{{ namespace }}">
                     <div class="accordion-body">
+                        <h4> Deployments </h4>
+                        <table class="table">
+                            <tr>
+                                <th> Deployment Name </th>
+                                <th> Replicas </th>
+                                <th> Available </th>
+                                <th> Unavailable </th>
+                                <th> Updated </th>
+                            </tr>
+                            {% for deployment in deployments %}
+                                <tr>
+                                    <td> {{ deployment.name }} </td>
+                                    <td> {{ deployment.replicas }} </td>
+                                    <td> {{ deployment.available }} </td>
+                                    <td> {{ deployment.unavailable }} </td>
+                                    <td> {{ deployment.updated }} </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <h4> Services </h4>
+                        <table class="table">
+                            <tr>
+                                <th> Service Name </th>
+                                <th> Type </th>
+                                <th> Cluster IP </th>
+                                <th> External IP </th>
+                                <th> Port </th>
+                            </tr>
+                            {% for service in services %}
+                                <tr>
+                                    <td> {{ service.name }} </td>
+                                    <td> {{ service.type }} </td>
+                                    <td> {{ service.cluster_ip }} </td>
+                                    <td> {{ service.external_ip }} </td>
+                                    <td> {{ service.port }} </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <div> Blah </div>
                         <h4> Pods </h4>
                         <table class="table">
                             <tr>

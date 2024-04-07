@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.views import View
-from .models import Cluster, Pod, Node, Ingress
+from .models import Cluster, Pod, Node, Ingress, Deployment, Service
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -20,6 +20,8 @@ class ClusterDetailView(View):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
         nodes = Node.objects.filter(cluster=cluster)
         ingress = Ingress.objects.filter(cluster=cluster)
+        deployment = Deployment.objects.filter(cluster=cluster)
+        service = Service.objects.filter(cluster=cluster)
 
         pods = {}
         for pod in Pod.objects.filter(cluster=cluster):
@@ -35,6 +37,8 @@ class ClusterDetailView(View):
                 "pods": pods,
                 "nodes": nodes,
                 "ingresses": ingress,
+                "deployments": deployment,
+                "services": service,
             },
         )
 
