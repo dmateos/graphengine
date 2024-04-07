@@ -46,7 +46,7 @@
 
         <h2> Namespaces </h2>
         <div class="accordion" id="podAccordian{{ namesoace }}">
-            {% for namespace, pod_list in pods.items %}
+            {% for namespace, items in namespaces.items %}
                 <div class="accordian-item">
                     <div class="accordion-header" id="heading{{ namespace }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ namespace }}" aria-expanded="false" aria-controls="collapse{{ namespace }}">
@@ -65,7 +65,7 @@
                                 <th> Unavailable </th>
                                 <th> Updated </th>
                             </tr>
-                            {% for deployment in deployments %}
+                            {% for deployment in items.deployments %}
                                 <tr>
                                     <td> {{ deployment.name }} </td>
                                     <td> {{ deployment.replicas }} </td>
@@ -84,7 +84,7 @@
                                 <th> External IP </th>
                                 <th> Port </th>
                             </tr>
-                            {% for service in services %}
+                            {% for service in items.services %}
                                 <tr>
                                     <td> {{ service.name }} </td>
                                     <td> {{ service.type }} </td>
@@ -104,7 +104,7 @@
                                 <th> Node </th>
                                 <th> IP </th>
                             </tr>
-                            {% for pod in pod_list %}
+                            {% for pod in items.pods %}
                                 <tr>
                                     <td> 
                                         <a href="{% url 'pod_detail' cluster.id pod.id %}">

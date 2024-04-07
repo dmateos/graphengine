@@ -20,25 +20,37 @@ class ClusterDetailView(View):
         cluster = Cluster.objects.get(pk=kwargs["pk"])
         nodes = Node.objects.filter(cluster=cluster)
         ingress = Ingress.objects.filter(cluster=cluster)
-        deployment = Deployment.objects.filter(cluster=cluster)
-        service = Service.objects.filter(cluster=cluster)
+        namespace = {}
 
-        pods = {}
         for pod in Pod.objects.filter(cluster=cluster):
-            if pod.namespace not in pods:
-                pods[pod.namespace] = []
-            pods[pod.namespace].append(pod)
+            if pod.namespace not in namespace:
+                namespace[pod.namespace] = {}
+            if "pods" not in namespace[pod.namespace]:
+                namespace[pod.namespace]["pods"] = []
+            namespace[pod.namespace]["pods"].append(pod)
+
+        for deployment in Deployment.objects.filter(cluster=cluster):
+            if deployment.namespace not in namespace:
+                namespace[deployment.namespace] = {}
+            if "deployments" not in namespace[deployment.namespace]:
+                namespace[deployment.namespace]["deployments"] = []
+            namespace[deployment.namespace]["deployments"].append(deployment)
+
+        for service in Service.objects.filter(cluster=cluster):
+            if service.namespace not in namespace:
+                namespace[service.namespace] = {}
+            if "services" not in namespace[service.namespace]:
+                namespace[service.namespace]["services"] = []
+            namespace[service.namespace]["services"].append(service)
 
         return render(
             request,
             "k8smanager/cluster_detail.html",
             {
                 "cluster": cluster,
-                "pods": pods,
+                "namespaces": namespace,
                 "nodes": nodes,
                 "ingresses": ingress,
-                "deployments": deployment,
-                "services": service,
             },
         )
 
