@@ -35,7 +35,7 @@ class ClusterDetailView(View):
                 "pods": pods,
                 "nodes": nodes,
                 "ingresses": ingress,
-            }
+            },
         )
 
 
@@ -58,5 +58,5 @@ class PodDetailView(View):
             {
                 "cluster": cluster,
                 "pod": pod,
-            }
+            },
         )

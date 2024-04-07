@@ -11,6 +11,8 @@ class Cluster(models.Model):
         return self.name
 
     def sync(self):
+        self.clean_unfound_resources()
+
         client = k8s.get_client(self.cluster_endpoint)
         nodes = k8s.get_nodes(client)
 
@@ -47,6 +49,35 @@ class Cluster(models.Model):
                 host=ingress["rules"].host,
             )
             ingress_obj.save()
+
+    def clean_unfound_resources(self):
+        client = k8s.get_client(self.cluster_endpoint)
+        nodes = k8s.get_nodes(client)
+        for node in Node.objects.filter(cluster=self):
+            if node.name not in nodes:
+                node.delete()
+
+        for namespace in k8s.get_namespaces(client):
+            if namespace != "kube-system":
+                pods = k8s.get_pods_for_namespace(client, namespace)
+                for pod in Pod.objects.filter(cluster=self, namespace=namespace):
+                    found = False
+                    for p in pods:
+                        if p["name"] == pod.name:
+                            found = True
+                            break
+                    if not found:
+                        pod.delete()
+
+        ingresses = k8s.get_ingresses(client)
+        for ingress in Ingress.objects.filter(cluster=self):
+            found = False
+            for i in ingresses:
+                if i["name"] == ingress.name:
+                    found = True
+                    break
+            if not found:
+                ingress.delete()
 
 
 class Node(models.Model):

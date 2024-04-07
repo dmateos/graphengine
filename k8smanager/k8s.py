@@ -30,13 +30,15 @@ def get_pods_for_namespace(client, namespace):
     pod_list = []
 
     for pod in pods.items:
-        pod_list.append({
-            "name": pod.metadata.name,
-            "ip": pod.status.pod_ip,
-            "start_time": pod.status.start_time,
-            "status": pod.status.phase,
-            "node": pod.spec.node_name,
-        })
+        pod_list.append(
+            {
+                "name": pod.metadata.name,
+                "ip": pod.status.pod_ip,
+                "start_time": pod.status.start_time,
+                "status": pod.status.phase,
+                "node": pod.spec.node_name,
+            }
+        )
     return pod_list
 
 
@@ -46,10 +48,12 @@ def get_ingresses(client):
     ingress_list = []
 
     for ingress in ingresses.items:
-        ingress_list.append({
-            "name": ingress.metadata.name,
-            "namespace": ingress.metadata.namespace,
-            "rules": ingress.spec.rules[0],
-            "ip": ingress.status.load_balancer.ingress[0].ip,
-        })
+        ingress_list.append(
+            {
+                "name": ingress.metadata.name,
+                "namespace": ingress.metadata.namespace,
+                "rules": ingress.spec.rules[0],
+                "ip": ingress.status.load_balancer.ingress[0].ip,
+            }
+        )
     return ingress_list
