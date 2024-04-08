@@ -68,6 +68,7 @@ class PodDetailView(View):
     def get(self, request, *args, **kwargs):
         cluster = Cluster.objects.get(pk=kwargs["cluster_pk"])
         pod = Pod.objects.get(pk=kwargs["pk"])
+        logs = pod.get_logs()
 
         return render(
             request,
@@ -75,5 +76,6 @@ class PodDetailView(View):
             {
                 "cluster": cluster,
                 "pod": pod,
+                "logs": logs,
             },
         )

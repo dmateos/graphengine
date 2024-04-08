@@ -160,6 +160,10 @@ class Pod(models.Model):
     def __str__(self):
         return self.name
 
+    def get_logs(self):
+        client = k8s.get_client(self.cluster.cluster_endpoint)
+        return k8s.get_logs_for_pod(client, self.namespace, self.name)
+
 
 class Deployment(models.Model):
     name = models.CharField(max_length=255)

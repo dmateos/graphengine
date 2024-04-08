@@ -95,3 +95,8 @@ def get_ingresses(client):
             }
         )
     return ingress_list
+
+
+def get_logs_for_pod(client, namespace, pod_name):
+    logs = client.read_namespaced_pod_log(pod_name, namespace)
+    return logs
