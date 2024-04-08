@@ -76,7 +76,6 @@ class Cluster(models.Model):
                     )
                     service_obj.save()
 
-
     def clean_unfound_resources(self):
         client = k8s.get_client(self.cluster_endpoint)
         nodes = k8s.get_nodes(client)
@@ -105,6 +104,26 @@ class Cluster(models.Model):
                     break
             if not found:
                 ingress.delete()
+
+        deployments = k8s.get_deployments_for_namespace(client, namespace=namespace)
+        for deployment in Deployment.objects.filter(cluster=self):
+            found = False
+            for d in deployments:
+                if d["name"] == deployment.name:
+                    found = True
+                    break
+            if not found:
+                deployment.delete()
+
+        services = k8s.get_services_for_namespace(client, namespace=namespace)
+        for service in Service.objects.filter(cluster=self):
+            found = False
+            for s in services:
+                if s["name"] == service.name:
+                    found = True
+                    break
+            if not found:
+                service.delete()
 
 
 class Node(models.Model):
