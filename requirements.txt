@@ -21,3 +21,4 @@ torchvision
 pillow
 opencv-python
 kubernetes
+boto3

@@ -1,4 +1,5 @@
 from django.db import models
+import boto3
 
 
 class Schedule(models.Model):
@@ -17,3 +18,16 @@ class UniversalTag(models.Model):
 
     def __str__(self):
         return f"{self.key}: {self.value}"
+
+    def get_aws_vms_with_tag(self):
+        aws = boto3.client("ec2")
+        instances = aws.describe_instances()
+        vms = []
+        for reservation in instances["Reservations"]:
+            for instance in reservation["Instances"]:
+                for tag in instance["Tags"]:
+                    if tag["Key"] == self.key and tag["Value"] == self.value:
+                        vms.append(instance)
+
+    def get_azure_vms_with_tag(self):
+        pass
