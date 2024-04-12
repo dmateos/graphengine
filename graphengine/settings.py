@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "l4mbda",
     "transformer",
     "k8smanager",
+    "tagman",
 ]
 
 MIDDLEWARE = [

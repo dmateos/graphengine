@@ -23,4 +23,5 @@ urlpatterns = [
     path('calculus/', include("calculus.urls")),
     path('transformer/', include("transformer.urls")),
     path('k8smanager/', include("k8smanager.urls")),
+    path('tagman/', include("tagman.urls")),
 ]
