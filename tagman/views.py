@@ -18,6 +18,7 @@ class TagDetailView(View):
         tag = UniversalTag.objects.get(pk=kwargs["pk"])
         aws_auth = AWSAccessDetails.objects.first()
         azure_auth = AzureAccessDetails.objects.first()
+        schedules = tag.schedules.all()
 
         if aws_auth:
             aws_vms = tag.get_aws_vms_with_tag(aws_auth)
@@ -36,5 +37,6 @@ class TagDetailView(View):
                 "tag": tag,
                 "aws_vms": aws_vms,
                 "azure_vms": azure_vms,
+                "schedules": schedules,
             }
         )

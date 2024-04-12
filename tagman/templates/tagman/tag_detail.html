@@ -3,7 +3,22 @@
 {% block content %}
 <div class="container">
     <h2> {{ tag.key }} {{ tag.value }} </h2>
+
     <div class="row">
+        <h1> Schedules </h1>
+        {% for schedule in schedules %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ schedule.name }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}    
+    </div>
+
+    <div class="row">
+        <h1> AWS servers </h1>
         {% for aws in aws_vms %}
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
@@ -14,6 +29,20 @@
         </div>
         {% endfor %}    
     </div>
+
+    <div class="row">
+        <h1> Azure servers </h1>
+        {% for azure in azure_vms %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ azure.name }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}    
+    </div>
+
 </div>
 
 {% endblock %}

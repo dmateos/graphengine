@@ -34,7 +34,7 @@ class AzureAccessDetails(models.Model):
 class UniversalTag(models.Model):
     key = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    schedules = models.ManyToManyField(Schedule)
 
     def __str__(self):
         return f"{self.key}: {self.value}"
