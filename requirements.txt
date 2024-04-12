@@ -22,3 +22,4 @@ pillow
 opencv-python
 kubernetes
 boto3
+azure.mgmt.compute
