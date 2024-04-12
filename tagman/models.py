@@ -54,8 +54,10 @@ class UniversalTag(models.Model):
                     if tag["Key"] == self.key and tag["Value"] == self.value:
                         vms.append(instance)
 
+        return vms
+
     def get_azure_vms_with_tag(self, auth_model):
-        azure = azure.mgmt.compute.ComputeManagementClient(
+        azure_con = azure.mgmt.compute.ComputeManagementClient(
             azure.common.credentials.ServicePrincipalCredentials(
                 client_id=auth_model.client_id,
                 secret=auth_model.secret,
@@ -63,3 +65,12 @@ class UniversalTag(models.Model):
             ),
             auth_model.subscription_id,
         )
+
+        vms = azure_con.virtual_machines.list_all()
+        tagged_vms = []
+        for vm in vms:
+            for tag in vm.tags:
+                if tag["Key"] == self.key and tag["Value"] == self.value:
+                    tagged_vms.append(vm)
+
+        return tagged_vms
