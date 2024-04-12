@@ -2,7 +2,17 @@
 
 {% block content %}
 <div class="container">
+    <h2> {{ tag.key }} {{ tag.value }} </h2>
     <div class="row">
+        {% for aws in aws_vms %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ aws.InstanceId }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}    
     </div>
 </div>
 
