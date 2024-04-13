@@ -1,6 +1,5 @@
 from django.db import models
-import boto3
-import azure.mgmt.compute
+from . import compute
 
 
 class Schedule(models.Model):
@@ -31,6 +30,15 @@ class AzureAccessDetails(models.Model):
         return self.subscription_id
 
 
+class EventLog(models.Model):
+    event = models.CharField(max_length=255)
+    time = models.DateTimeField(auto_now_add=True)
+    machine_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.event} - {self.time}"
+
+
 class UniversalTag(models.Model):
     key = models.CharField(max_length=255)
     value = models.CharField(max_length=255)
@@ -40,37 +48,15 @@ class UniversalTag(models.Model):
         return f"{self.key}: {self.value}"
 
     def get_aws_vms_with_tag(self, auth_model):
-        aws = boto3.client(
-            "ec2",
-            region_name=auth_model.region,
-            aws_access_key_id=auth_model.access_key,
-            aws_secret_access_key=auth_model.secret_key,
+        return compute.get_aws_vms_with_tag(
+            auth_model,
+            self.key,
+            self.value
         )
-        instances = aws.describe_instances()
-        vms = []
-        for reservation in instances["Reservations"]:
-            for instance in reservation["Instances"]:
-                for tag in instance["Tags"]:
-                    if tag["Key"] == self.key and tag["Value"] == self.value:
-                        vms.append(instance)
-
-        return vms
 
     def get_azure_vms_with_tag(self, auth_model):
-        azure_con = azure.mgmt.compute.ComputeManagementClient(
-            azure.common.credentials.ServicePrincipalCredentials(
-                client_id=auth_model.client_id,
-                secret=auth_model.secret,
-                tenant=auth_model.tenant,
-            ),
-            auth_model.subscription_id,
+        return compute.get_azure_vm_with_tag(
+            auth_model,
+            self.key,
+            self.value
         )
-
-        vms = azure_con.virtual_machines.list_all()
-        tagged_vms = []
-        for vm in vms:
-            for tag in vm.tags:
-                if tag["Key"] == self.key and tag["Value"] == self.value:
-                    tagged_vms.append(vm)
-
-        return tagged_vms
