@@ -49,14 +49,10 @@ class UniversalTag(models.Model):
 
     def get_aws_vms_with_tag(self, auth_model):
         return compute.get_aws_vms_with_tag(
-            auth_model,
-            self.key,
-            self.value
+            auth_model, self.key, self.value
         )
 
     def get_azure_vms_with_tag(self, auth_model):
         return compute.get_azure_vm_with_tag(
-            auth_model,
-            self.key,
-            self.value
+            auth_model, self.key, self.value
         )
