@@ -51,6 +51,7 @@ def get_azure_vm_with_tag(auth_model, key, value):
     azure_con = azure_auth(auth_model)
     vms = azure_con.virtual_machines.list_all()
     tagged_vms = []
+
     for vm in vms:
         for tag in vm.tags:
             if tag["Key"] == key and tag["Value"] == value:
