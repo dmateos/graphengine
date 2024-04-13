@@ -26,12 +26,14 @@
         <table class="table">
             <tr>
                 <th> Instance ID </th>
+                <th> Type </th>
                 <th> State </th>
                 <th> Last event </th>
             </tr>
             {% for aws in aws_vms %}
             <tr>
-                <td> {{ aws.InstanceId }} </td>
+                <td> {{ aws.id }} </td>
+                <td> {{ aws.type }} </td>
                 <td> {{ aws.state }} </td>
                 <td> None </td>
             </tr>

@@ -15,7 +15,12 @@ def get_aws_vms_with_tag(auth_model, key, value):
         for instance in reservation["Instances"]:
             for tag in instance["Tags"]:
                 if tag["Key"] == key and tag["Value"] == value:
-                    vms.append(instance)
+                    instance_dict = {
+                        "id": instance["InstanceId"],
+                        "state": instance["State"]["Name"],
+                        "type": instance["InstanceType"],
+                    }
+                    vms.append(instance_dict)
     return vms
 
 
