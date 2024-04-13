@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="container-fluid">
-    <h2> Tag ({{ tag.key }} -> {{ tag.value }}) </h2>
+    <h1> Tag ({{ tag.key }} -> {{ tag.value }}) </h1>
 
-    <h1> Schedules </h1>
+    <h2> Schedules </h2>
     <div class="row">
         {% for schedule in schedules %}
         <div class="col-md-4">
@@ -21,7 +21,7 @@
         {% endfor %}    
     </div>
 
-    <h1> AWS servers </h1>
+    <h2> AWS servers </h2>
     <div class="row">
         <table class="table">
             <tr>
@@ -39,7 +39,7 @@
         </table>
     </div>
 
-    <h1> Azure servers </h1>
+    <h2> Azure servers </h2>
     <div class="row">
         {% for azure in azure_vms %}
         <div class="col-md-4">
