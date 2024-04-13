@@ -9,13 +9,28 @@ class VmModel(pydantic.BaseModel):
     type: str
 
 
-def get_aws_vms_with_tag(auth_model, key, value):
-    aws = boto3.client(
+def aws_auth(auth_model):
+    return boto3.client(
         "ec2",
         region_name=auth_model.region,
         aws_access_key_id=auth_model.access_key,
         aws_secret_access_key=auth_model.secret_key,
     )
+
+
+def azure_auth(auth_model):
+    return azure.mgmt.compute.ComputeManagementClient(
+        azure.common.credentials.ServicePrincipalCredentials(
+            client_id=auth_model.client_id,
+            secret=auth_model.secret,
+            tenant=auth_model.tenant,
+        ),
+        auth_model.subscription_id,
+    )
+
+
+def get_aws_vms_with_tag(auth_model, key, value):
+    aws = aws_auth(auth_model)
     instances = aws.describe_instances()
     vms = []
 
@@ -33,15 +48,7 @@ def get_aws_vms_with_tag(auth_model, key, value):
 
 
 def get_azure_vm_with_tag(auth_model, key, value):
-    azure_con = azure.mgmt.compute.ComputeManagementClient(
-        azure.common.credentials.ServicePrincipalCredentials(
-            client_id=auth_model.client_id,
-            secret=auth_model.secret,
-            tenant=auth_model.tenant,
-        ),
-        auth_model.subscription_id,
-    )
-
+    azure_con = azure_auth(auth_model)
     vms = azure_con.virtual_machines.list_all()
     tagged_vms = []
     for vm in vms:
@@ -55,3 +62,21 @@ def get_azure_vm_with_tag(auth_model, key, value):
                 tagged_vms.append(vm_model)
 
     return tagged_vms
+
+
+def shutdown_or_startup_aws_vm(auth_model, vm_id, action):
+    aws = aws_auth(auth_model)
+
+    if action == "shutdown":
+        aws.stop_instances(InstanceIds=[vm_id])
+    elif action == "startup":
+        aws.start_instances(InstanceIds=[vm_id])
+
+
+def shutdown_or_startup_azure_vm(auth_model, vm_id, action):
+    azure_con = azure_auth(auth_model)
+
+    if action == "shutdown":
+        azure_con.virtual_machines.power_off(auth_model.resource_group, vm_id)
+    elif action == "startup":
+        azure_con.virtual_machines.start(auth_model.resource_group, vm_id)
