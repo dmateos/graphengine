@@ -1,5 +1,12 @@
 import boto3
 import azure.mgmt.compute
+import pydantic
+
+
+class VmModel(pydantic.BaseModel):
+    id: str
+    state: str
+    type: str
 
 
 def get_aws_vms_with_tag(auth_model, key, value):
@@ -15,12 +22,12 @@ def get_aws_vms_with_tag(auth_model, key, value):
         for instance in reservation["Instances"]:
             for tag in instance["Tags"]:
                 if tag["Key"] == key and tag["Value"] == value:
-                    instance_dict = {
-                        "id": instance["InstanceId"],
-                        "state": instance["State"]["Name"],
-                        "type": instance["InstanceType"],
-                    }
-                    vms.append(instance_dict)
+                    vm_model = VmModel(
+                        id=instance["InstanceId"],
+                        state=instance["State"]["Name"],
+                        type=instance["InstanceType"],
+                    )
+                    vms.append(vm_model)
     return vms
 
 
@@ -39,6 +46,11 @@ def get_azure_vm_with_tag(auth_model, key, value):
     for vm in vms:
         for tag in vm.tags:
             if tag["Key"] == key and tag["Value"] == value:
-                tagged_vms.append(vm)
+                vm_model = VmModel(
+                    id=vm.id,
+                    state=vm.instance_view.statuses[1].display_status,
+                    type=vm.hardware_profile.vm_size,
+                )
+                tagged_vms.append(vm_model)
 
     return tagged_vms
