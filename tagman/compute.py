@@ -18,6 +18,7 @@ def get_aws_vms_with_tag(auth_model, key, value):
     )
     instances = aws.describe_instances()
     vms = []
+
     for reservation in instances["Reservations"]:
         for instance in reservation["Instances"]:
             for tag in instance["Tags"]:
