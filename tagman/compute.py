@@ -60,7 +60,6 @@ def get_azure_vm_with_tag(auth_model, key, value):
                     type=vm.hardware_profile.vm_size,
                 )
                 tagged_vms.append(vm_model)
-
     return tagged_vms
 
 
