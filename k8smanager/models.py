@@ -24,12 +24,12 @@ class Cluster(models.Model):
         ingresses = k8s.get_ingresses(client)
         for ingress in ingresses:
             ingress_obj, _ = Ingress.objects.get_or_create(
-                name=ingress["name"],
+                name=ingress.name,
                 cluster=self,
-                namespace=ingress["namespace"],
-                rules=ingress["rules"],
-                ip_address=ingress["ip"],
-                host=ingress["rules"].host,
+                namespace=ingress.namespace,
+                rules=ingress.rules,
+                ip_address=ingress.ip,
+                host="broken",
             )
             ingress_obj.save()
 
@@ -37,42 +37,39 @@ class Cluster(models.Model):
             if namespace != "kube-system":
                 pods = k8s.get_pods_for_namespace(client, namespace)
                 for pod in pods:
-                    node_obj = Node.objects.get(name=pod["node"])
+                    node_obj = Node.objects.get(name=pod.node)
                     pod_obj, _ = Pod.objects.get_or_create(
-                        name=pod["name"],
+                        name=pod.name,
                         cluster=self,
                         node=node_obj,
                         namespace=namespace,
-                        status=pod["status"],
-                        start_time=pod["start_time"],
-                        ip_address=pod["ip"],
+                        status=pod.status,
+                        start_time=pod.start_time,
+                        ip_address=pod.ip,
                     )
                     pod_obj.save()
 
                 deployments = k8s.get_deployments_for_namespace(client, namespace)
                 for deployment in deployments:
                     deployment_obj, _ = Deployment.objects.get_or_create(
-                        name=deployment["name"],
+                        name=deployment.name,
                         cluster=self,
-                        namespace=deployment["namespace"],
-                        replicas=deployment["replicas"],
-                        available_replicas=deployment["available_replicas"],
-                        unavailable_replicas=deployment["unavailable_replicas"],
-                        strategy=deployment["strategy"],
-                        template=deployment["template"],
+                        namespace=deployment.namespace,
+                        replicas=deployment.replicas,
+                        available_replicas=deployment.available_replicas,
                     )
                     deployment_obj.save()
 
                 services = k8s.get_services_for_namespace(client, namespace)
                 for service in services:
                     service_obj, _ = Service.objects.get_or_create(
-                        name=service["name"],
+                        name=service.name,
                         cluster=self,
-                        namespace=service["namespace"],
-                        cluster_ip=service["cluster_ip"],
-                        external_ip=service["external_ip"],
-                        type=service["type"],
-                        ports=service["ports"],
+                        namespace=service.namespace,
+                        cluster_ip=service.cluster_ip,
+                        external_ip=service.external_ip,
+                        type=service.type,
+                        ports=service.ports,
                     )
                     service_obj.save()
 
@@ -89,7 +86,7 @@ class Cluster(models.Model):
                 for pod in Pod.objects.filter(cluster=self, namespace=namespace):
                     found = False
                     for p in pods:
-                        if p["name"] == pod.name:
+                        if p.name == pod.name:
                             found = True
                             break
                     if not found:
@@ -99,7 +96,7 @@ class Cluster(models.Model):
         for ingress in Ingress.objects.filter(cluster=self):
             found = False
             for i in ingresses:
-                if i["name"] == ingress.name:
+                if i.name == ingress.name:
                     found = True
                     break
             if not found:
@@ -109,7 +106,7 @@ class Cluster(models.Model):
         for deployment in Deployment.objects.filter(cluster=self):
             found = False
             for d in deployments:
-                if d["name"] == deployment.name:
+                if d.name == deployment.name:
                     found = True
                     break
             if not found:
@@ -119,7 +116,7 @@ class Cluster(models.Model):
         for service in Service.objects.filter(cluster=self):
             found = False
             for s in services:
-                if s["name"] == service.name:
+                if s.name == service.name:
                     found = True
                     break
             if not found:
@@ -172,8 +169,6 @@ class Deployment(models.Model):
     replicas = models.IntegerField()
     available_replicas = models.IntegerField(null=True)
     unavailable_replicas = models.IntegerField(null=True)
-    strategy = models.TextField()
-    template = models.TextField()
 
     def __str__(self):
         return self.name

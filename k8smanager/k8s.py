@@ -1,4 +1,36 @@
 import kubernetes
+import pydantic
+
+
+class ServiceModel(pydantic.BaseModel):
+    name: str
+    namespace: str
+    cluster_ip: str
+    external_ip: str | None
+    type: str
+    ports: list
+
+
+class DeploymentModel(pydantic.BaseModel):
+    name: str
+    namespace: str
+    replicas: int
+    available_replicas: int | None
+
+
+class PodModel(pydantic.BaseModel):
+    name: str
+    ip: str
+    start_time: str
+    status: str
+    node: str
+
+
+class IngressModel(pydantic.BaseModel):
+    name: str
+    namespace: str
+    rules: str
+    ip: str
 
 
 def get_client(endpoint: str):
@@ -30,16 +62,15 @@ def get_services_for_namespace(client, namespace):
     service_list = []
 
     for service in services.items:
-        service_list.append(
-            {
-                "name": service.metadata.name,
-                "namespace": service.metadata.namespace,
-                "cluster_ip": service.spec.cluster_ip,
-                "external_ip": service.spec.external_i_ps,
-                "type": service.spec.type,
-                "ports": service.spec.ports,
-            }
+        service_model = ServiceModel(
+            name=service.metadata.name,
+            namespace=service.metadata.namespace,
+            cluster_ip=service.spec.cluster_ip,
+            external_ip=service.spec.external_i_ps,
+            type=service.spec.type,
+            ports=service.spec.ports,
         )
+        service_list.append(service_model)
     return service_list
 
 
@@ -49,17 +80,13 @@ def get_deployments_for_namespace(client, namespace):
     deployment_list = []
 
     for deployment in deployments.items:
-        deployment_list.append(
-            {
-                "name": deployment.metadata.name,
-                "namespace": deployment.metadata.namespace,
-                "replicas": deployment.spec.replicas,
-                "available_replicas": deployment.status.available_replicas,
-                "unavailable_replicas": deployment.status.unavailable_replicas,
-                "strategy": deployment.spec.strategy,
-                "template": deployment.spec.template,
-            }
+        deployment_model = DeploymentModel(
+            name=deployment.metadata.name,
+            namespace=deployment.metadata.namespace,
+            replicas=deployment.spec.replicas,
+            available_replicas=deployment.status.available_replicas,
         )
+        deployment_list.append(deployment_model)
     return deployment_list
 
 
@@ -68,15 +95,14 @@ def get_pods_for_namespace(client, namespace):
     pod_list = []
 
     for pod in pods.items:
-        pod_list.append(
-            {
-                "name": pod.metadata.name,
-                "ip": pod.status.pod_ip,
-                "start_time": pod.status.start_time,
-                "status": pod.status.phase,
-                "node": pod.spec.node_name,
-            }
+        pod_model = PodModel(
+            name=pod.metadata.name,
+            ip=pod.status.pod_ip,
+            start_time=str(pod.status.start_time),
+            status=pod.status.phase,
+            node=pod.spec.node_name,
         )
+        pod_list.append(pod_model)
     return pod_list
 
 
@@ -86,14 +112,13 @@ def get_ingresses(client):
     ingress_list = []
 
     for ingress in ingresses.items:
-        ingress_list.append(
-            {
-                "name": ingress.metadata.name,
-                "namespace": ingress.metadata.namespace,
-                "rules": ingress.spec.rules[0],
-                "ip": ingress.status.load_balancer.ingress[0].ip,
-            }
+        ingress_model = IngressModel(
+            name=ingress.metadata.name,
+            namespace=ingress.metadata.namespace,
+            rules=str(ingress.spec.rules[0]),
+            ip=ingress.status.load_balancer.ingress[0].ip,
         )
+        ingress_list.append(ingress_model)
     return ingress_list
 
 
