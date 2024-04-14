@@ -29,8 +29,9 @@ class PodModel(pydantic.BaseModel):
 class IngressModel(pydantic.BaseModel):
     name: str
     namespace: str
-    rules: str
     ip: str
+    host: str | None
+    rules: list | None
 
 
 def get_client(endpoint: str):
@@ -115,8 +116,9 @@ def get_ingresses(client):
         ingress_model = IngressModel(
             name=ingress.metadata.name,
             namespace=ingress.metadata.namespace,
-            rules=str(ingress.spec.rules[0]),
             ip=ingress.status.load_balancer.ingress[0].ip,
+            host=ingress.spec.rules[0].host,
+            rules=ingress.spec.rules,
         )
         ingress_list.append(ingress_model)
     return ingress_list

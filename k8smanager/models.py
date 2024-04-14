@@ -29,7 +29,7 @@ class Cluster(models.Model):
                 namespace=ingress.namespace,
                 rules=ingress.rules,
                 ip_address=ingress.ip,
-                host="broken",
+                host=ingress.host,
             )
             ingress_obj.save()
 
