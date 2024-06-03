@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    {% for agent in agent_list %}
+        <h1> {{ agent.name }} </h1>
+        <img src="{{ agent.base_image.url }}" alt="{{ agent.name }}" class="img-thumbnail">
+        <a href="{% url 'agent_detail' agent.id %}">View</a>
+    {% endfor %}
+</div>
+
+{% endblock %}
