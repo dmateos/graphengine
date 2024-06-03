@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "transformer",
     "k8smanager",
     "tagman",
+    "llmtale",
 ]
 
 MIDDLEWARE = [
