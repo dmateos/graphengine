@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <img src="{{ agent.base_image.url }}" alt="{{ agent.name }}" class="img-thumbnail">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}

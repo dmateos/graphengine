@@ -3,7 +3,6 @@ from django.db import models
 
 class Agent(models.Model):
     name = models.CharField(max_length=100)
-    history = models.TextField()
     backstory = models.TextField() 
     base_image = models.ImageField(upload_to="agents/")
 
@@ -12,3 +11,8 @@ class Agent(models.Model):
 
     def greeting(self):
         pass
+
+
+class History(models.Model):
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    message = models.TextField()

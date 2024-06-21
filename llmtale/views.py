@@ -21,8 +21,17 @@ class LLMAgentView(View):
         return render(
             request,
             "llmtale/llmagent_detail.html",
-            {"model": model, "form": form}
+            {"agent": model, "form": form}
         )
 
     def post(self, request, pk):
-        pass
+        model = models.Agent.objects.get(pk=pk)
+        form = forms.TextInputForm(request.POST)
+        if form.is_valid():
+            pass
+
+        return render(
+            request,
+            "llmtale/llmagent_detail.html",
+            {"agent": model, "form": form}
+        )
