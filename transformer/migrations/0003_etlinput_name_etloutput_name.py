@@ -6,20 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transformer', '0002_alter_etljob_description_alter_etljob_error_message_and_more'),
+        (
+            "transformer",
+            "0002_alter_etljob_description_alter_etljob_error_message_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='etlinput',
-            name='name',
-            field=models.CharField(default='default', max_length=100),
+            model_name="etlinput",
+            name="name",
+            field=models.CharField(default="default", max_length=100),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='etloutput',
-            name='name',
-            field=models.CharField(default='default', max_length=100),
+            model_name="etloutput",
+            name="name",
+            field=models.CharField(default="default", max_length=100),
             preserve_default=False,
         ),
     ]

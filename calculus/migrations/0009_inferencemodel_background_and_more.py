@@ -6,18 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0008_alter_inferencemodel_model_name_and_more'),
+        ("calculus", "0008_alter_inferencemodel_model_name_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='inferencemodel',
-            name='background',
+            model_name="inferencemodel",
+            name="background",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='output_type',
-            field=models.CharField(choices=[('text', 'text'), ('image', 'image'), ('image_stream', 'image_stream'), ('text_stream', 'text_stream'), ('data_frame', 'data_frame'), ('graphengine_graphimage_and_text', 'graphengine_graphimage_and_text'), ('l4mbda', 'l4mbda')], default='text', max_length=32),
+            model_name="inferencemodel",
+            name="output_type",
+            field=models.CharField(
+                choices=[
+                    ("text", "text"),
+                    ("image", "image"),
+                    ("image_stream", "image_stream"),
+                    ("text_stream", "text_stream"),
+                    ("data_frame", "data_frame"),
+                    (
+                        "graphengine_graphimage_and_text",
+                        "graphengine_graphimage_and_text",
+                    ),
+                    ("l4mbda", "l4mbda"),
+                ],
+                default="text",
+                max_length=32,
+            ),
         ),
     ]

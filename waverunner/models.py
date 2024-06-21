@@ -30,4 +30,4 @@ class Result(models.Model):
 class Pick(models.Model):
     race = models.ForeignKey(Competition, on_delete=models.CASCADE)
     racer = models.ForeignKey(Participant, on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)

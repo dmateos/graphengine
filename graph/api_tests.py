@@ -84,7 +84,7 @@ def test_api_graphpoints_put():
     response = api_client.post(
         "/graphs/api/graphpoints/",
         json.dumps({"graph": graph.id, "label": "test", "data": 1}),
-        content_type="application/json"
+        content_type="application/json",
     )
     assert response.status_code == 201
     assert models.GraphPoint.objects.count() == 2
@@ -105,7 +105,7 @@ def test_api_graphpoints_push_increases_sequence():
     api_client.post(
         "/graphs/api/graphpoints/",
         json.dumps({"graph": graph.id, "label": "test", "data": 1}),
-        content_type="application/json"
+        content_type="application/json",
     )
 
     assert models.GraphPoint.objects.count() == 2
@@ -114,7 +114,7 @@ def test_api_graphpoints_push_increases_sequence():
     api_client.post(
         "/graphs/api/graphpoints/",
         json.dumps({"graph": graph.id, "label": "test", "data": 1}),
-        content_type="application/json"
+        content_type="application/json",
     )
 
     assert models.GraphPoint.objects.count() == 3

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('graph', '0005_graph_primary_color'),
+        ("graph", "0005_graph_primary_color"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='graph',
-            name='primary_color',
-            field=models.CharField(default='#68729e', max_length=16),
+            model_name="graph",
+            name="primary_color",
+            field=models.CharField(default="#68729e", max_length=16),
         ),
     ]

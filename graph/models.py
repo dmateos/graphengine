@@ -7,11 +7,7 @@ GRAPHTYPE_BAR = "bar"
 class Graph(models.Model):
     name = models.CharField(max_length=32, null=False)
     shift_count = models.IntegerField(null=False, default=0)
-    primary_color = models.CharField(
-        max_length=16,
-        null=False,
-        default="#68729e"
-    )
+    primary_color = models.CharField(max_length=16, null=False, default="#68729e")
     type = models.CharField(
         max_length=16,
         null=False,
@@ -37,8 +33,7 @@ class Graph(models.Model):
     def create_point(self, label, data):
         try:
             new_seq = (
-                self.graphpoint_set.all().order_by("-sequence").first()
-                .sequence + 1
+                self.graphpoint_set.all().order_by("-sequence").first().sequence + 1
             )
         except AttributeError:
             new_seq = 0

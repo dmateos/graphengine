@@ -19,9 +19,7 @@ class LLMAgentView(View):
         model = models.Agent.objects.get(pk=pk)
         form = forms.TextInputForm()
         return render(
-            request,
-            "llmtale/llmagent_detail.html",
-            {"agent": model, "form": form}
+            request, "llmtale/llmagent_detail.html", {"agent": model, "form": form}
         )
 
     def post(self, request, pk):
@@ -31,7 +29,5 @@ class LLMAgentView(View):
             pass
 
         return render(
-            request,
-            "llmtale/llmagent_detail.html",
-            {"agent": model, "form": form}
+            request, "llmtale/llmagent_detail.html", {"agent": model, "form": form}
         )

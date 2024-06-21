@@ -18,7 +18,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
     else:
-        #time.sleep(1)
+        # time.sleep(1)
         pass
 
     # convert frame to jpg
@@ -31,5 +31,9 @@ while True:
     csrf_token = session.cookies["csrftoken"]
 
     # send frame to server as post data using requests
-    response = session.post(f"{host}/calculus/models/{model_id}", files=files, headers={"X-CSRFToken": csrf_token})
+    response = session.post(
+        f"{host}/calculus/models/{model_id}",
+        files=files,
+        headers={"X-CSRFToken": csrf_token},
+    )
     print(response.text)

@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class WaverunnerConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'waverunner'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "waverunner"

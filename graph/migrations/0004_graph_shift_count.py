@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('graph', '0003_alter_graphpoint_label'),
+        ("graph", "0003_alter_graphpoint_label"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='graph',
-            name='shift_count',
+            model_name="graph",
+            name="shift_count",
             field=models.IntegerField(default=0),
         ),
     ]

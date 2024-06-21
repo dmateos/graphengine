@@ -99,7 +99,7 @@ DATABASES = {
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
 }
 
 REDIS = {
@@ -146,9 +146,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = ''
-MEDIA_URL = 'media/'
-MEDIA_ROOT = 'media'
+STATIC_ROOT = ""
+MEDIA_URL = "media/"
+MEDIA_ROOT = "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -168,4 +168,4 @@ REST_FRAMEWORK = {
     ],
 }
 
-CRISPY_TEMPLATE_PACK = 'Bootstrap5'
+CRISPY_TEMPLATE_PACK = "Bootstrap5"

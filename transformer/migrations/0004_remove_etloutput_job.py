@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transformer', '0003_etlinput_name_etloutput_name'),
+        ("transformer", "0003_etlinput_name_etloutput_name"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='etloutput',
-            name='job',
+            model_name="etloutput",
+            name="job",
         ),
     ]

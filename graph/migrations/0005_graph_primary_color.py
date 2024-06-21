@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('graph', '0004_graph_shift_count'),
+        ("graph", "0004_graph_shift_count"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='graph',
-            name='primary_color',
-            field=models.CharField(default='#0000FF', max_length=16),
+            model_name="graph",
+            name="primary_color",
+            field=models.CharField(default="#0000FF", max_length=16),
         ),
     ]

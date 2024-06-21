@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('k8smanager', '0004_ingress'),
+        ("k8smanager", "0004_ingress"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='ingress',
-            name='rules',
+            model_name="ingress",
+            name="rules",
             field=models.TextField(),
         ),
     ]

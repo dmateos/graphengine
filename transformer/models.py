@@ -8,12 +8,9 @@ ETL_STATUS = (
     ("SUCCESS", "SUCCESS"),
     ("FAILED", "FAILED"),
     ("ERROR", "ERROR"),
-
 )
 
-ETL_INPUT_TYPE = (
-    ("FILE_CSV", "FILE_CSV"),
-)
+ETL_INPUT_TYPE = (("FILE_CSV", "FILE_CSV"),)
 
 
 class ETLJob(models.Model):
@@ -30,6 +27,7 @@ class ETLJob(models.Model):
 
     def run_etl(self):
         from l4mbda.tasks import run_etl
+
         run_etl.delay(self.id)
 
     def run(self):

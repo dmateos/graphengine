@@ -6,17 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0004_alter_inferencemodel_model_name'),
+        ("calculus", "0004_alter_inferencemodel_model_name"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='inferencemodel',
-            name='input',
+            model_name="inferencemodel",
+            name="input",
         ),
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='model_name',
-            field=models.CharField(choices=[('facebook/bart-large-mnli', 'facebook/bart-large-mnli'), ('google/vit-base-patch16-224', 'google/vit-base-patch16-224'), ('google/owlvit-base-patch32', 'google/owlvit-base-patch32'), ('test', 'test')], max_length=32),
+            model_name="inferencemodel",
+            name="model_name",
+            field=models.CharField(
+                choices=[
+                    ("facebook/bart-large-mnli", "facebook/bart-large-mnli"),
+                    ("google/vit-base-patch16-224", "google/vit-base-patch16-224"),
+                    ("google/owlvit-base-patch32", "google/owlvit-base-patch32"),
+                    ("test", "test"),
+                ],
+                max_length=32,
+            ),
         ),
     ]

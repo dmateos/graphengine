@@ -7,28 +7,69 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0007_alter_inferencemodel_input_type_and_more'),
+        ("calculus", "0007_alter_inferencemodel_input_type_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='model_name',
-            field=models.CharField(choices=[('test', 'test'), ('testImage', 'testImage'), ('testRNGImage', 'testRNGImage'), ('facebook/bart-large-mnli', 'facebook/bart-large-mnli'), ('google/vit-base-patch16-224', 'google/vit-base-patch16-224'), ('google/owlvit-base-patch32', 'google/owlvit-base-patch32'), ('ChatGPTProcessPlanning', 'ChatGPTProcessPlanning'), ('TransformersPipelineLLM', 'TransformersPipelineLLM'), ('RestNet50', 'RestNet50')], max_length=32),
+            model_name="inferencemodel",
+            name="model_name",
+            field=models.CharField(
+                choices=[
+                    ("test", "test"),
+                    ("testImage", "testImage"),
+                    ("testRNGImage", "testRNGImage"),
+                    ("facebook/bart-large-mnli", "facebook/bart-large-mnli"),
+                    ("google/vit-base-patch16-224", "google/vit-base-patch16-224"),
+                    ("google/owlvit-base-patch32", "google/owlvit-base-patch32"),
+                    ("ChatGPTProcessPlanning", "ChatGPTProcessPlanning"),
+                    ("TransformersPipelineLLM", "TransformersPipelineLLM"),
+                    ("RestNet50", "RestNet50"),
+                ],
+                max_length=32,
+            ),
         ),
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='output_type',
-            field=models.CharField(choices=[('text', 'text'), ('image', 'image'), ('text_stream', 'text_stream'), ('image_stream', 'image_stream'), ('data_frame', 'data_frame'), ('graphengine_graphimage_and_text', 'graphengine_graphimage_and_text')], default='text', max_length=32),
+            model_name="inferencemodel",
+            name="output_type",
+            field=models.CharField(
+                choices=[
+                    ("text", "text"),
+                    ("image", "image"),
+                    ("text_stream", "text_stream"),
+                    ("image_stream", "image_stream"),
+                    ("data_frame", "data_frame"),
+                    (
+                        "graphengine_graphimage_and_text",
+                        "graphengine_graphimage_and_text",
+                    ),
+                ],
+                default="text",
+                max_length=32,
+            ),
         ),
         migrations.CreateModel(
-            name='InferenceCache',
+            name="InferenceCache",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('input', models.TextField()),
-                ('output', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='calculus.inferencemodel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("input", models.TextField()),
+                ("output", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "model",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="calculus.inferencemodel",
+                    ),
+                ),
             ],
         ),
     ]

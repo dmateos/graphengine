@@ -8,9 +8,6 @@ router.register(r"models", views.InferenceViewSet)
 urlpatterns = [
     path("api/", include(router.urls)),
     path("models/", views.InferenceListView.as_view(), name="model"),
-    path("models/<int:pk>",
-         views.InferenceView.as_view(),
-         name="model_detail"
-         ),
+    path("models/<int:pk>", views.InferenceView.as_view(), name="model_detail"),
     path("", views.IndexView.as_view()),
 ]

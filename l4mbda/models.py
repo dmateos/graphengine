@@ -5,15 +5,12 @@ class Job(models.Model):
     name = models.CharField(max_length=32, default="new job")
     code = models.TextField()
     times_to_run = models.IntegerField(default=1)
-    
+
     # TODO should be in job run, race condition?
     storage = models.TextField(default="", null=True, blank=True)
 
     next_job = models.ForeignKey(
-        "self",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
+        "self", on_delete=models.CASCADE, null=True, blank=True
     )
 
     def __str__(self):
@@ -57,11 +54,7 @@ class JobRun(models.Model):
     state = models.CharField(
         max_length=16,
         default="not-run",
-        choices=(
-            ("not-run", "not-run"),
-            ("running", "running"),
-            ("done", "done")
-        ),
+        choices=(("not-run", "not-run"), ("running", "running"), ("done", "done")),
     )
 
     status = models.CharField(

@@ -8,25 +8,29 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('k8smanager', '0002_pod_node'),
+        ("k8smanager", "0002_pod_node"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pod',
-            name='ip_address',
-            field=models.GenericIPAddressField(default='10.69.0.1'),
+            model_name="pod",
+            name="ip_address",
+            field=models.GenericIPAddressField(default="10.69.0.1"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='pod',
-            name='node',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='k8smanager.node'),
+            model_name="pod",
+            name="node",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="k8smanager.node",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='pod',
-            name='start_time',
+            model_name="pod",
+            name="start_time",
             field=models.DateTimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),

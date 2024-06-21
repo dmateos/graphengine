@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('l4mbda', '0001_initial'),
+        ("l4mbda", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='job',
-            name='storage',
-            field=models.TextField(default=''),
+            model_name="job",
+            name="storage",
+            field=models.TextField(default=""),
         ),
     ]

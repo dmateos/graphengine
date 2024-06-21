@@ -76,9 +76,12 @@ class TestInferenceView(django.test.TestCase):
             output="",
         )
 
-        response = self.client.post(f"/calculus/models/{model.pk}", {
-            "input": "test-input",
-        })
+        response = self.client.post(
+            f"/calculus/models/{model.pk}",
+            {
+                "input": "test-input",
+            },
+        )
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, f"/calculus/models/{model.pk}")
@@ -95,9 +98,12 @@ class TestInferenceView(django.test.TestCase):
         )
 
         with open("calculus/test.jpg", "rb") as f:
-            response = self.client.post(f"/calculus/models/{model.pk}", {
-                "input": f,
-            })
+            response = self.client.post(
+                f"/calculus/models/{model.pk}",
+                {
+                    "input": f,
+                },
+            )
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, f"/calculus/models/{model.pk}")
@@ -110,9 +116,12 @@ class TestInferenceView(django.test.TestCase):
             output="",
         )
 
-        response = self.client.post(f"/calculus/models/{model.pk}", {
-            "input": "",
-        })
+        response = self.client.post(
+            f"/calculus/models/{model.pk}",
+            {
+                "input": "",
+            },
+        )
 
         self.assertEqual(response.status_code, 500)
 

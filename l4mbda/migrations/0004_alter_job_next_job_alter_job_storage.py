@@ -7,18 +7,23 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('l4mbda', '0003_job_next_job'),
+        ("l4mbda", "0003_job_next_job"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='job',
-            name='next_job',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='l4mbda.job'),
+            model_name="job",
+            name="next_job",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="l4mbda.job",
+            ),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='storage',
-            field=models.TextField(blank=True, default='', null=True),
+            model_name="job",
+            name="storage",
+            field=models.TextField(blank=True, default="", null=True),
         ),
     ]

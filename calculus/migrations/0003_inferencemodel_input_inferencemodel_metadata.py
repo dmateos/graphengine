@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0002_inferencemodel_output'),
+        ("calculus", "0002_inferencemodel_output"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='inferencemodel',
-            name='input',
+            model_name="inferencemodel",
+            name="input",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='inferencemodel',
-            name='metadata',
+            model_name="inferencemodel",
+            name="metadata",
             field=models.TextField(blank=True, null=True),
         ),
     ]

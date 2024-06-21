@@ -7,19 +7,33 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('k8smanager', '0003_pod_ip_address_pod_node_pod_start_time'),
+        ("k8smanager", "0003_pod_ip_address_pod_node_pod_start_time"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Ingress',
+            name="Ingress",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('namespace', models.CharField(max_length=255)),
-                ('rules', models.CharField(max_length=255)),
-                ('ip_address', models.GenericIPAddressField()),
-                ('cluster', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='k8smanager.cluster')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("namespace", models.CharField(max_length=255)),
+                ("rules", models.CharField(max_length=255)),
+                ("ip_address", models.GenericIPAddressField()),
+                (
+                    "cluster",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="k8smanager.cluster",
+                    ),
+                ),
             ],
         ),
     ]

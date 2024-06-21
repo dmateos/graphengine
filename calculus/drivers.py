@@ -13,7 +13,10 @@ from langchain.prompts import PromptTemplate
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
 
-from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
+from torchvision.models.detection import (
+    fasterrcnn_resnet50_fpn_v2,
+    FasterRCNN_ResNet50_FPN_V2_Weights,
+)
 from torchvision.utils import draw_bounding_boxes
 from torchvision.transforms.functional import to_pil_image, pil_to_tensor
 
@@ -36,7 +39,7 @@ class TestDriverImage:
 class TestDriverRNGImage:
     def run(self, input, metadata):
         a = np.random.rand(1024, 1024, 3) * 255
-        im_out = Image.fromarray(a.astype('uint8')).convert('RGB')
+        im_out = Image.fromarray(a.astype("uint8")).convert("RGB")
         buffered = io.BytesIO()
         im_out.save(buffered, format="JPEG")
         image = base64.b64encode(buffered.getvalue())
@@ -56,7 +59,10 @@ class VitBasePatch16_224:
     def run(self, input, metadata):
         model = transformers.pipeline(model="google/vit-base-patch16-224")
         output = model(images=input)
-        output = [{"score": round(pred["score"], 4), "label": pred["label"]} for pred in output]
+        output = [
+            {"score": round(pred["score"], 4), "label": pred["label"]}
+            for pred in output
+        ]
         return output
 
 
@@ -78,7 +84,14 @@ class Rresnet50:
 
         prediction = model(batch)[0]
         labels = [weights.meta["categories"][i] for i in prediction["labels"]]
-        box = draw_bounding_boxes(img, boxes=prediction["boxes"], labels=labels, colors="red", width=4, font_size=60)
+        box = draw_bounding_boxes(
+            img,
+            boxes=prediction["boxes"],
+            labels=labels,
+            colors="red",
+            width=4,
+            font_size=60,
+        )
         pil_img = to_pil_image(box.detach())
 
         buffered = io.BytesIO()
@@ -91,8 +104,7 @@ class Rresnet50:
 class OwlvitBasePatch32:
     def run(self, input, metadata):
         model = transformers.pipeline(
-            model="google/owlvit-base-patch32",
-            task="zero-shot-object-detection"
+            model="google/owlvit-base-patch32", task="zero-shot-object-detection"
         )
         output = model(input, candidate_labels=metadata.split(","))
         return output
@@ -121,9 +133,7 @@ class Process(BaseModel):
 
 class ChatGPTProcessPlanner:
     def run(self, input, metadata):
-        llm = ChatOpenAI(
-            model_name=metadata
-        )
+        llm = ChatOpenAI(model_name=metadata)
 
         query = f"#{input}"
         parser = PydanticOutputParser(pydantic_object=Process)
@@ -133,11 +143,7 @@ class ChatGPTProcessPlanner:
             partial_variables={"format_instructions": parser.get_format_instructions()},
         )
 
-        llm_chain = LLMChain(
-            llm=llm,
-            prompt=prompt,
-            verbose=True
-        )
+        llm_chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
 
         output = llm_chain.run(query)
         output = json.loads(parser.parse(output).json())

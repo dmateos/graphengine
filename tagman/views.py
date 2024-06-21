@@ -38,5 +38,5 @@ class TagDetailView(View):
                 "aws_vms": aws_vms,
                 "azure_vms": azure_vms,
                 "schedules": schedules,
-            }
+            },
         )

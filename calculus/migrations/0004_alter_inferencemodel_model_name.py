@@ -6,13 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0003_inferencemodel_input_inferencemodel_metadata'),
+        ("calculus", "0003_inferencemodel_input_inferencemodel_metadata"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='model_name',
-            field=models.CharField(choices=[('facebook/bart-large-mnli', 'facebook/bart-large-mnli'), ('google/vit-base-patch16-224', 'google/vit-base-patch16-224'), ('test', 'test')], max_length=32),
+            model_name="inferencemodel",
+            name="model_name",
+            field=models.CharField(
+                choices=[
+                    ("facebook/bart-large-mnli", "facebook/bart-large-mnli"),
+                    ("google/vit-base-patch16-224", "google/vit-base-patch16-224"),
+                    ("test", "test"),
+                ],
+                max_length=32,
+            ),
         ),
     ]

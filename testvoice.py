@@ -2,7 +2,10 @@ import cv2
 import os
 import random
 from PIL import Image
-from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
+from torchvision.models.detection import (
+    fasterrcnn_resnet50_fpn_v2,
+    FasterRCNN_ResNet50_FPN_V2_Weights,
+)
 from torchvision.transforms.functional import pil_to_tensor
 
 last_label = None
@@ -11,7 +14,7 @@ possible_strings = [
     "Thats a {thing} you dumb cunt",
     "Obviously thats a {thing}, you fucking bastard",
     "I think thats a {thing}, you dickhead",
-    "You have a {thing} there, you stupid shithead"
+    "You have a {thing} there, you stupid shithead",
 ]
 
 cap = cv2.VideoCapture(0)

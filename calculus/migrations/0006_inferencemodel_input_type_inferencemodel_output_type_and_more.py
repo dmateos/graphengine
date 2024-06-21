@@ -6,23 +6,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculus', '0005_remove_inferencemodel_input_and_more'),
+        ("calculus", "0005_remove_inferencemodel_input_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='inferencemodel',
-            name='input_type',
-            field=models.CharField(blank=True, choices=[('text', 'text'), ('image', 'image')], max_length=32, null=True),
+            model_name="inferencemodel",
+            name="input_type",
+            field=models.CharField(
+                blank=True,
+                choices=[("text", "text"), ("image", "image")],
+                max_length=32,
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='inferencemodel',
-            name='output_type',
-            field=models.CharField(blank=True, choices=[('text', 'text'), ('text_stream', 'text_stream'), ('image', 'image'), ('image_stream', 'image_stream')], max_length=32, null=True),
+            model_name="inferencemodel",
+            name="output_type",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("text", "text"),
+                    ("text_stream", "text_stream"),
+                    ("image", "image"),
+                    ("image_stream", "image_stream"),
+                ],
+                max_length=32,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='inferencemodel',
-            name='model_name',
-            field=models.CharField(choices=[('test', 'test'), ('facebook/bart-large-mnli', 'facebook/bart-large-mnli'), ('google/vit-base-patch16-224', 'google/vit-base-patch16-224'), ('google/owlvit-base-patch32', 'google/owlvit-base-patch32'), ('ChatGPTProcessPlanning', 'ChatGPTProcessPlanning'), ('TransformersPipelineLLM', 'TransformersPipelineLLM')], max_length=32),
+            model_name="inferencemodel",
+            name="model_name",
+            field=models.CharField(
+                choices=[
+                    ("test", "test"),
+                    ("facebook/bart-large-mnli", "facebook/bart-large-mnli"),
+                    ("google/vit-base-patch16-224", "google/vit-base-patch16-224"),
+                    ("google/owlvit-base-patch32", "google/owlvit-base-patch32"),
+                    ("ChatGPTProcessPlanning", "ChatGPTProcessPlanning"),
+                    ("TransformersPipelineLLM", "TransformersPipelineLLM"),
+                ],
+                max_length=32,
+            ),
         ),
     ]

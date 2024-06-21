@@ -32,7 +32,7 @@ class InferenceView(View):
         return render(
             request,
             "calculus/inference_detail.html",
-            {"model": model, "form": input_form}
+            {"model": model, "form": input_form},
         )
 
     def post(self, request, pk):

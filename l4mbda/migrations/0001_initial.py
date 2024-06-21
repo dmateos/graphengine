@@ -8,34 +8,85 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Job',
+            name="Job",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(default='new job', max_length=32)),
-                ('code', models.TextField()),
-                ('times_to_run', models.IntegerField(default=1)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(default="new job", max_length=32)),
+                ("code", models.TextField()),
+                ("times_to_run", models.IntegerField(default=1)),
             ],
         ),
         migrations.CreateModel(
-            name='JobRun',
+            name="JobRun",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('job_message', models.TextField(default='')),
-                ('state', models.CharField(choices=[('not-run', 'not-run'), ('running', 'running'), ('done', 'done')], default='not-run', max_length=16)),
-                ('status', models.CharField(choices=[('none', 'none'), ('ok', 'ok'), ('error', 'error')], default='none', max_length=16)),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='l4mbda.job')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("job_message", models.TextField(default="")),
+                (
+                    "state",
+                    models.CharField(
+                        choices=[
+                            ("not-run", "not-run"),
+                            ("running", "running"),
+                            ("done", "done"),
+                        ],
+                        default="not-run",
+                        max_length=16,
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("none", "none"), ("ok", "ok"), ("error", "error")],
+                        default="none",
+                        max_length=16,
+                    ),
+                ),
+                (
+                    "job",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="l4mbda.job"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='JobInput',
+            name="JobInput",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='l4mbda.job')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "job",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="l4mbda.job"
+                    ),
+                ),
             ],
         ),
     ]
