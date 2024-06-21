@@ -24,3 +24,6 @@ kubernetes
 boto3
 azure.mgmt.compute
 pydantic
+
+black
+flake8
