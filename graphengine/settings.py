@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "k8smanager",
     "tagman",
     "llmtale",
+    "vecman",
 ]
 
 MIDDLEWARE = [
@@ -89,12 +90,12 @@ WSGI_APPLICATION = "graphengine.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("MYSQL_NAME"),
-        "HOST": os.environ.get("MYSQL_HOST"),
-        "USER": os.environ.get("MYSQL_USER"),
-        "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
-        "PORT": 3306,
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "HOST": os.environ.get("DB_HOST"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "PORT": 5432,
     },
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",

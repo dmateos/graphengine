@@ -4,8 +4,8 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from crewai_tools import tool
 import os
 
-os.environ["OPENAI_API_KEY"] = "NA"
-llm = Ollama(model="llama3.1", base_url="http://localhost:11434")
+os.environ["OPENAI_API_KEY"] = "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"
+llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 
 @tool("DuckDuckGoSearch")
@@ -61,4 +61,7 @@ my_crew = Crew(
 )
 
 crew_output = my_crew.kickoff()
+
+# Get output of write task
+print("DONE")
 print(crew_output)
