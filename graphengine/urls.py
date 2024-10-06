@@ -28,4 +28,5 @@ urlpatterns = [
     path("k8smanager/", include("k8smanager.urls")),
     path("tagman/", include("tagman.urls")),
     path("llmtale/", include("llmtale.urls")),
+    path("vecman/", include("vecman.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

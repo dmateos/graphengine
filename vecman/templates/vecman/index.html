@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> {{ query }} </h1>
+
+    {% for document in documents %}
+        <div>
+            <code>
+                {{ document.text_data }}
+            </code>
+        </div>
+    {% endfor %}
+{% endblock %}
