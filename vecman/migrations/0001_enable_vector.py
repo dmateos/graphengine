@@ -9,6 +9,4 @@ class Migration(migrations.Migration):
 
     dependencies = []
 
-    operations = [
-      VectorExtension()
-    ]
+    operations = [VectorExtension()]
