@@ -1,10 +1,10 @@
 #!/bin/bash
 #
 docker run  \
-  --env MYSQL_HOST=$MYSQL_HOST \
-  --env MYSQL_NAME=$MYSQL_NAME \
-  --env MYSQL_USER=$MYSQL_USER \
-  --env MYSQL_PASSWORD=$MYSQL_PASSWORD \
+  --env DB_HOST=$DB_HOST \
+  --env DB_NAME=$DB_NAME \
+  --env DB_USER=$DB_USER \
+  --env DB_PASSWORD=$DB_PASSWORD \
   --env REDIS_HOST=$REDIS_HOST \
   --env REDIS_PASSWORD=$REDIS_PASSWORD \
   graph-worker
