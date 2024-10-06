@@ -27,7 +27,7 @@ class File(models.Model):
         ]
 
     def save_embedding(self, embedding):
-        self.embedding = embedding.tolist()
+        self.embedding = embedding
         self.save()
 
     @staticmethod
@@ -42,13 +42,13 @@ class File(models.Model):
             outputs = model(**inputs)
 
         embeddings = outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
-        return embeddings
+        return embeddings.tolist()
 
     @staticmethod
-    def search_embedding(text):
+    def search_embedding(text, max_return=10):
         encoded = File.encode_embedding(text)
         files_with_distance = File.objects.annotate(
             distance=CosineDistance("embedding", encoded)
-        ).order_by("distance")[:12]
+        ).order_by("distance")[:max_return]
         print(files_with_distance)
         return files_with_distance
