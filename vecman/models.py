@@ -47,4 +47,5 @@ class File(models.Model):
         results = File.objects.annotate(
             distance=F("embedding").distance(Vector(encoded.tolist()))
         ).order_by("distance")[:5]
+
         return results
