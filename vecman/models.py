@@ -3,6 +3,8 @@ from pgvector.django import VectorField, HnswIndex, CosineDistance
 from transformers import AutoTokenizer, AutoModel
 import torch
 
+CHOICES = [("txt", "Text"), ("img", "Image")]
+
 
 class File(models.Model):
     embedding = VectorField(
@@ -12,6 +14,7 @@ class File(models.Model):
         blank=True,
     )
     text_data = models.TextField()
+    file_type = models.CharField(max_length=10, default="txt", choices=CHOICES)
 
     class Meta:
         indexes = [
