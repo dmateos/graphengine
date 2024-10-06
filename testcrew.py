@@ -4,7 +4,6 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from crewai_tools import tool
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 
