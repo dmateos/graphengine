@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import F
 from pgvector.django import VectorField, HnswIndex
-from pgvector import Vector
 from transformers import AutoTokenizer, AutoModel
 import torch
 
@@ -45,7 +44,7 @@ class File(models.Model):
         encoded = self.encode_embedding(text)
 
         results = File.objects.annotate(
-            distance=F("embedding").distance(Vector(encoded.tolist()))
+            distance=F("embedding").distance(encoded.tolist())
         ).order_by("distance")[:5]
 
         return results
