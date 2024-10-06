@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models import F, FloatField
-from django.db.models.functions import Cast
 from pgvector.django import VectorField, HnswIndex, CosineDistance
 from transformers import AutoTokenizer, AutoModel
 import torch
