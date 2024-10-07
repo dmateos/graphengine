@@ -4,17 +4,18 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 
 CHOICES = [("txt", "Text"), ("img", "Image")]
+DIMENSIONS = 384
 
 
 class File(models.Model):
+    text_data = models.TextField()
+    file_type = models.CharField(max_length=10, default="txt", choices=CHOICES)
     embedding = VectorField(
-        dimensions=384,
+        dimensions=DIMENSIONS,
         help_text="Vector embeddings",
         null=True,
         blank=True,
     )
-    text_data = models.TextField()
-    file_type = models.CharField(max_length=10, default="txt", choices=CHOICES)
 
     class Meta:
         indexes = [

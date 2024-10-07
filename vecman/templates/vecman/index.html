@@ -10,9 +10,10 @@
     </form>
 
     {% for document in documents %}
-        <div>
-            <div> {{ document.id }} </div>
+        <p>
+            {{ document.id }}
             <code> {{ document.text_data }} </code>
-        </div>
+        </p>
     {% endfor %}
+
 {% endblock %}
