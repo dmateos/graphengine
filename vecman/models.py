@@ -51,5 +51,4 @@ class File(models.Model):
         files_with_distance = File.objects.annotate(
             distance=CosineDistance("embedding", encoded)
         ).order_by("distance")[:max_return]
-        print(files_with_distance)
         return files_with_distance

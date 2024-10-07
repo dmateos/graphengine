@@ -3,14 +3,13 @@ import json
 import numpy as np
 import base64
 import io
-import torch
 
 from PIL import Image
 
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
 
 from torchvision.models.detection import (

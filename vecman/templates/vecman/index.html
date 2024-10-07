@@ -11,9 +11,8 @@
 
     {% for document in documents %}
         <div>
-            <code>
-                {{ document.text_data }}
-            </code>
+            <div> {{ document.id }} </div>
+            <code> {{ document.text_data }} </code>
         </div>
     {% endfor %}
 {% endblock %}
